@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "tb_usuarios")
+@Table(name = "cul_usuarios")
 public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pkId;
 
-    private long fk_tb_tipos_sexos_id;
+    private long fk_cul_generos_id;
 
     private String nomeUsuario;
 
@@ -35,9 +35,9 @@ public class Usuarios {
 
     private Date dataDesativacao;
 
-    public Usuarios(long fk_tb_tipos_sexos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
+    public Usuarios(long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
             String telefone, String bio, String cpf, String email, Date dataNasc) {
-        this.fk_tb_tipos_sexos_id = fk_tb_tipos_sexos_id;
+        this.fk_cul_generos_id = fk_cul_generos_id;
         this.nomeUsuario = nomeUsuario;
         this.nomeCompleto = nomeCompleto;
         this.urlFoto = urlFoto;
@@ -48,11 +48,11 @@ public class Usuarios {
         this.cpf = cpf;
     }
 
-    public Usuarios(Long pkId, Long fk_tb_tipos_sexos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
+    public Usuarios(Long pkId, Long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
             String telefone, String bio, String cpf, String email, Date dataNasc, Date dataCriacao, Date dataMudanca,
             Date dataDesativacao) {
         this.pkId = pkId;
-        this.fk_tb_tipos_sexos_id = fk_tb_tipos_sexos_id;
+        this.fk_cul_generos_id = fk_cul_generos_id;
         this.nomeUsuario = nomeUsuario;
         this.nomeCompleto = nomeCompleto;
         this.urlFoto = urlFoto;
@@ -66,10 +66,10 @@ public class Usuarios {
         this.dataDesativacao = dataDesativacao;
     }
 
-    public Usuarios(Long fk_tb_tipos_sexos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
+    public Usuarios(Long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
             String telefone, String bio, String cpf, String email, Date dataNasc,
             Date dataCriacao, Date dataMudanca, Date dataDesativacao) {
-        this.fk_tb_tipos_sexos_id = fk_tb_tipos_sexos_id;
+        this.fk_cul_generos_id = fk_cul_generos_id;
         this.nomeUsuario = nomeUsuario;
         this.nomeCompleto = nomeCompleto;
         this.urlFoto = urlFoto;
@@ -95,12 +95,12 @@ public class Usuarios {
         return pkId;
     }
 
-    public long getFk_tb_tipos_sexos_id() {
-        return fk_tb_tipos_sexos_id;
+    public long getfk_cul_generos_id() {
+        return fk_cul_generos_id;
     }
 
-    public void setFk_tb_tipos_sexos_id(long fk_tb_tipos_sexos_id) {
-        this.fk_tb_tipos_sexos_id = fk_tb_tipos_sexos_id;
+    public void setfk_cul_generos_id(long fk_cul_generos_id) {
+        this.fk_cul_generos_id = fk_cul_generos_id;
     }
 
     public String getNomeUsuario() {
@@ -195,7 +195,7 @@ public class Usuarios {
     public String toString() {
         return "UsuariosModel{" +
                 "pkId=" + pkId +
-                ", fk_tb_tipos_sexos_id=" + fk_tb_tipos_sexos_id +
+                ", fk_cul_generos_id=" + fk_cul_generos_id +
                 ", nome_usuario='" + nomeUsuario + '\'' +
                 ", nome_completo='" + nomeCompleto + '\'' +
                 ", url_foto='" + urlFoto + '\'' +

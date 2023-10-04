@@ -54,7 +54,7 @@ public class UsuariosController {
         if (usuario.isPresent()) {
 
             Usuarios user = usuario.get();
-            user.setFk_tb_tipos_sexos_id(usuariosAtt.getFk_tb_tipos_sexos_id());
+            user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
             user.setNomeUsuario(usuariosAtt.getNomeUsuario());
             user.setNomeCompleto(usuariosAtt.getNomeCompleto());
             user.setTelefone(usuariosAtt.getTelefone());
