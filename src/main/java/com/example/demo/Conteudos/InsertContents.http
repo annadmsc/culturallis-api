@@ -1,0 +1,6 @@
+POST http://localhost:1234/api/culturallis/inserirCategorias
+Content-Type: application/json
+
+{
+  "nome": "Categoria Teste Serial"
+}
