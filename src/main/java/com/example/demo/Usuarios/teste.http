@@ -1,5 +1,12 @@
-GET localhost:1234/api/culturallis/listarUsuarios
+POST localhost:1234/api/culturallis/inserirUsuario
 Content-Type: application/json
+
+{
+  "nomeCompleto": "Aninha",
+  "email": "ana.damasceno@gmail",
+  "senha": "123",
+  "urlFoto": "lalala.com.png"
+}
 
 
 
