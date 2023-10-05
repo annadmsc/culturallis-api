@@ -9,11 +9,15 @@ import java.util.Date;
 public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_id")
     private long pkId;
 
     private long fk_cul_generos_id;
 
     private String nomeUsuario;
+
+
+    private String senha;
 
     private String nomeCompleto;
 
@@ -35,7 +39,7 @@ public class Usuarios {
 
     private Date dataDesativacao;
 
-    public Usuarios(long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
+    public Usuarios(long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String senha, String urlFoto,
             String telefone, String bio, String cpf, String email, Date dataNasc) {
         this.fk_cul_generos_id = fk_cul_generos_id;
         this.nomeUsuario = nomeUsuario;
@@ -46,11 +50,12 @@ public class Usuarios {
         this.email = email;
         this.dataNasc = dataNasc;
         this.cpf = cpf;
+        this.senha = senha;
     }
 
     public Usuarios(Long pkId, Long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
             String telefone, String bio, String cpf, String email, Date dataNasc, Date dataCriacao, Date dataMudanca,
-            Date dataDesativacao) {
+            Date dataDesativacao, String senha) {
         this.pkId = pkId;
         this.fk_cul_generos_id = fk_cul_generos_id;
         this.nomeUsuario = nomeUsuario;
@@ -64,11 +69,12 @@ public class Usuarios {
         this.dataCriacao = dataCriacao;
         this.dataMudanca = dataMudanca;
         this.dataDesativacao = dataDesativacao;
+        this.senha= senha;
     }
 
     public Usuarios(Long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
             String telefone, String bio, String cpf, String email, Date dataNasc,
-            Date dataCriacao, Date dataMudanca, Date dataDesativacao) {
+            Date dataCriacao, Date dataMudanca, Date dataDesativacao, String senha) {
         this.fk_cul_generos_id = fk_cul_generos_id;
         this.nomeUsuario = nomeUsuario;
         this.nomeCompleto = nomeCompleto;
@@ -81,6 +87,7 @@ public class Usuarios {
         this.dataCriacao = dataCriacao;
         this.dataMudanca = dataMudanca;
         this.dataDesativacao = dataDesativacao;
+        this.senha= senha;
     }
 
     public Usuarios() {
@@ -93,6 +100,14 @@ public class Usuarios {
 
     public Long getpkId() {
         return pkId;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public long getfk_cul_generos_id() {
@@ -193,20 +208,21 @@ public class Usuarios {
 
     @Override
     public String toString() {
-        return "UsuariosModel{" +
+        return "Usuarios{" +
                 "pkId=" + pkId +
                 ", fk_cul_generos_id=" + fk_cul_generos_id +
-                ", nome_usuario='" + nomeUsuario + '\'' +
-                ", nome_completo='" + nomeCompleto + '\'' +
-                ", url_foto='" + urlFoto + '\'' +
+                ", nomeUsuario='" + nomeUsuario + '\'' +
+                ", senha='" + senha + '\'' +
+                ", nomeCompleto='" + nomeCompleto + '\'' +
+                ", urlFoto='" + urlFoto + '\'' +
                 ", telefone='" + telefone + '\'' +
-                ", bio ='" + bio + '\'' +
-                ", email ='" + email + '\'' +
+                ", bio='" + bio + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", data_nasc='" + dataNasc + '\'' +
-                ", data_criacao=" + dataCriacao +
-                ", data_mudanca=" + dataMudanca +
-                ", data_desativacao=" + dataDesativacao +
+                ", email='" + email + '\'' +
+                ", dataNasc=" + dataNasc +
+                ", dataCriacao=" + dataCriacao +
+                ", dataMudanca=" + dataMudanca +
+                ", dataDesativacao=" + dataDesativacao +
                 '}';
     }
 }

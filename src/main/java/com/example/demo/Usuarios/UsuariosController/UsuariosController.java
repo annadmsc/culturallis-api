@@ -3,6 +3,8 @@ package com.example.demo.Usuarios.UsuariosController;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date;
@@ -25,18 +27,23 @@ public class UsuariosController {
         return usuariosRepository.findAll();
     }
 
+
     @PostMapping("/inserirUsuario")
-    public ResponseEntity<String> insertUsarios(@RequestBody Usuarios usuarios) {
+    public ResponseEntity<String> insertUsuarios(@RequestBody Usuarios usuarios) {
         usuarios.setDataCriacao(new Date());
-        usuarios.setpkId(1);
-        System.out.println(usuarios);
         try {
-            usuariosRepository.save(usuarios);
-            return ResponseEntity.ok("Usuário Inserido");
+            System.out.println(usuarios.getpkId());
+            Usuarios savedUsuario = usuariosRepository.save(usuarios);
+            return ResponseEntity.ok("Usuário Inserido, ID: " + savedUsuario.getpkId());
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + e.getMessage());
         }
     }
+
+
+
 
     @DeleteMapping("/excluirUsuarios")
     public ResponseEntity<String> deleteUsuarios(@RequestParam Long id) {
@@ -65,6 +72,7 @@ public class UsuariosController {
             user.setDataNasc(usuariosAtt.getDataNasc());
             user.setDataMudanca(new Date());
             user.setDataDesativacao(usuariosAtt.getDataDesativacao());
+            user.setSenha(usuariosAtt.getSenha());
             usuariosRepository.save(user);
             return ResponseEntity.ok("Usuário atualizado!");
         }
