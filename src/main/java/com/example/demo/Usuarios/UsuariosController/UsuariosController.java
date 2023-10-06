@@ -1,5 +1,6 @@
 package com.example.demo.Usuarios.UsuariosController;
 
+import com.example.demo.Seguidores.SeguidorModel.Seguidor;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,16 @@ public class UsuariosController {
     }
 
 
+
+    @GetMapping("/login")
+    public boolean login(@RequestBody Usuarios request) {
+
+        Usuarios user = usuariosRepository.findByEmail(request.getEmail());
+
+        return user != null && user.getSenha().equals(request.getSenha());
+    }
+
+
     @PostMapping("/inserirUsuario")
     public ResponseEntity<String> insertUsuarios(@RequestBody Usuarios usuarios) {
         usuarios.setDataCriacao(new Date());
@@ -41,8 +52,6 @@ public class UsuariosController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + e.getMessage());
         }
     }
-
-
 
 
     @DeleteMapping("/excluirUsuarios")
