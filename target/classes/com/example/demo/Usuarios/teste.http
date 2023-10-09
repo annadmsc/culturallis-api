@@ -1,4 +1,4 @@
-GET localhost:1234/api/culturallis/login
+POST localhost:1234/api/culturallis/login
 Content-Type: application/json
 
 {
