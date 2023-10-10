@@ -1,9 +1,9 @@
-GET localhost:1234/api/culturallis/login
+PUT localhost:1234/api/culturallis/alterarUsuarios/jpackman2@cmu.edu
 Content-Type: application/json
 
 {
-  "email": "fidex",
-  "senha": "fidax1234"
+  "email": "fidas.fida@gmail",
+  "nomeCompleto": "Fifizinho"
 }
 
 

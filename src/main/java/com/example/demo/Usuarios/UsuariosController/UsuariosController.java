@@ -1,6 +1,5 @@
 package com.example.demo.Usuarios.UsuariosController;
 
-import com.example.demo.Seguidores.SeguidorModel.Seguidor;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +33,13 @@ public class UsuariosController {
 
         Usuarios user = usuariosRepository.findByEmail(request.getEmail());
 
+
         return user != null && user.getSenha().equals(request.getSenha());
     }
 
+
     @GetMapping("/email/{email}")
-    public Usuarios findByEmfindByIdail(@PathVariable String email) {
+    public Usuarios findUserByEmail(@PathVariable String email) {
         Usuarios usuario = usuariosRepository.findByEmail(email);
         return usuario;
     }
@@ -67,10 +68,13 @@ public class UsuariosController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/alterarUsuarios/{id}")
-    public ResponseEntity<String> alterarUsuario(@PathVariable Long id, @RequestBody Usuarios usuariosAtt) {
-        Optional<Usuarios> usuario = usuariosRepository.findById(id);
+    @PutMapping("/alterarUsuarios/{email}")
+    public ResponseEntity<String> alterarUsuario(@PathVariable String email, @RequestBody Usuarios usuariosAtt) {
+        Optional<Usuarios> usuario = Optional.ofNullable(usuariosRepository.findByEmail(email));
+
+
         if (usuario.isPresent()) {
+
 
             Usuarios user = usuario.get();
             user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
@@ -79,7 +83,9 @@ public class UsuariosController {
             user.setTelefone(usuariosAtt.getTelefone());
             user.setBio(usuariosAtt.getBio());
             user.setCpf(usuariosAtt.getCpf());
-            user.setUrlFoto(usuariosAtt.getUrlFoto());
+
+
+
             user.setEmail(usuariosAtt.getEmail());
             user.setDataNasc(usuariosAtt.getDataNasc());
             user.setDataMudanca(new Date());
