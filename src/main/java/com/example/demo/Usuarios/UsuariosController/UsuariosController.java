@@ -4,6 +4,7 @@ import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,20 @@ public class UsuariosController {
         return usuariosRepository.findAll();
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public boolean login(@RequestBody Usuarios request) {
 
         Usuarios user = usuariosRepository.findByEmail(request.getEmail());
 
 
         return user != null && user.getSenha().equals(request.getSenha());
+    }
+
+
+    @GetMapping("/email/{email}")
+    public Usuarios findUserByEmail(@PathVariable String email) {
+        Usuarios usuario = usuariosRepository.findByEmail(email);
+        return usuario;
     }
 
     @PostMapping("/inserirUsuario")
