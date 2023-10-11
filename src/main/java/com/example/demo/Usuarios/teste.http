@@ -1,12 +1,1 @@
-PUT localhost:1234/api/culturallis/alterarUsuarios/jpackman2@cmu.edu
-Content-Type: application/json
-
-{
-  "email": "fidas.fida@gmail",
-  "nomeCompleto": "Fifizinho"
-}
-
-
-
-
 

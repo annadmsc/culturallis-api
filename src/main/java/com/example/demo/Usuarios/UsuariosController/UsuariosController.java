@@ -28,7 +28,10 @@ public class UsuariosController {
         return usuariosRepository.findAll();
     }
 
-    @GetMapping("/login")
+
+
+
+    @PostMapping("/login")
     public boolean login(@RequestBody Usuarios request) {
 
         Usuarios user = usuariosRepository.findByEmail(request.getEmail());
