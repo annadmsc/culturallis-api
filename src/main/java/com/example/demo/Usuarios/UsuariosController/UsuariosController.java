@@ -30,11 +30,15 @@ public class UsuariosController {
     }
 
     @GetMapping("/login")
-    public boolean login(@RequestBody Usuarios request) {
+    public boolean login(@RequestBody Usuarios request) throws Exception {
 
         Usuarios user = usuariosRepository.findByEmail(request.getEmail());
 
-        return user != null && user.getSenha().equals(request.getSenha());
+        if(user == null){
+            throw new Exception("Email não cadastrado");
+        }
+
+        return user.getSenha().equals(request.getSenha());
     }
 
     @GetMapping("/email/{email}")

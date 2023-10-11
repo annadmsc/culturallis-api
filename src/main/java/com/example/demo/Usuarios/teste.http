@@ -2,7 +2,7 @@ GET localhost:1234/api/culturallis/login
 Content-Type: application/json
 
 {
-  "email": "fidex",
+  "email": "marx",
   "senha": "fidax1234"
 }
 
