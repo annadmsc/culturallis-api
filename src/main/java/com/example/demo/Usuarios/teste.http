@@ -1,1 +1,12 @@
+GET localhost:1234/api/culturallis/login
+Content-Type: application/json
+
+{
+  "email": "max",
+  "senha": "fidax1234"
+}
+
+
+
+
 

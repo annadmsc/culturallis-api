@@ -4,7 +4,6 @@ import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,18 +27,16 @@ public class UsuariosController {
         return usuariosRepository.findAll();
     }
 
-
-
-
     @PostMapping("/login")
-    public boolean login(@RequestBody Usuarios request) {
+    public boolean login(@RequestBody Usuarios request) throws Exception {
 
         Usuarios user = usuariosRepository.findByEmail(request.getEmail());
 
-
-        return user != null && user.getSenha().equals(request.getSenha());
+        if (user == null) {
+            throw new Exception("Email não cadastrado");
+        }
+        return user.getSenha().equals(request.getSenha());
     }
-
 
     @GetMapping("/email/{email}")
     public Usuarios findUserByEmail(@PathVariable String email) {
@@ -75,9 +72,7 @@ public class UsuariosController {
     public ResponseEntity<String> alterarUsuario(@PathVariable String email, @RequestBody Usuarios usuariosAtt) {
         Optional<Usuarios> usuario = Optional.ofNullable(usuariosRepository.findByEmail(email));
 
-
         if (usuario.isPresent()) {
-
 
             Usuarios user = usuario.get();
             user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
@@ -86,8 +81,6 @@ public class UsuariosController {
             user.setTelefone(usuariosAtt.getTelefone());
             user.setBio(usuariosAtt.getBio());
             user.setCpf(usuariosAtt.getCpf());
-
-
 
             user.setEmail(usuariosAtt.getEmail());
             user.setDataNasc(usuariosAtt.getDataNasc());
