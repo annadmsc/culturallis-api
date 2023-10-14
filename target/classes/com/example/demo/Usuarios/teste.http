@@ -1,11 +1,13 @@
-GET localhost:1234/api/culturallis/login
+PUT localhost:1234/api/culturallis/alterarUsuarios/teste02@.com
 Content-Type: application/json
 
-{
-  "email": "max",
-  "senha": "fidax1234"
-}
 
+{"nomeUsuario":"teste02",
+  "dataNasc":"2001-01-01T00:00:00.000-02:00",
+  "bio":"Eba",
+  "email": "babaca@gmail.com",
+  "urlFoto":"com.squareup.picasso.PicassoDrawable@aea6ad2"
+}
 
 
 

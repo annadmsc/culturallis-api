@@ -73,7 +73,6 @@ public class UsuariosController {
         Optional<Usuarios> usuario = Optional.ofNullable(usuariosRepository.findByEmail(email));
 
         if (usuario.isPresent()) {
-
             Usuarios user = usuario.get();
             user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
             user.setNomeUsuario(usuariosAtt.getNomeUsuario());
@@ -82,7 +81,10 @@ public class UsuariosController {
             user.setBio(usuariosAtt.getBio());
             user.setCpf(usuariosAtt.getCpf());
 
-            user.setEmail(usuariosAtt.getEmail());
+            if(usuariosAtt.getEmail() != null) {
+                user.setEmail(usuariosAtt.getEmail());
+            }
+
             user.setDataNasc(usuariosAtt.getDataNasc());
             user.setDataMudanca(new Date());
             user.setDataDesativacao(usuariosAtt.getDataDesativacao());
