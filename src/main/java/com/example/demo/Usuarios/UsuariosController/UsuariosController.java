@@ -2,11 +2,14 @@ package com.example.demo.Usuarios.UsuariosController;
 
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
+import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +38,16 @@ public class UsuariosController {
         if (user == null) {
             throw new Exception("Email não cadastrado");
         }
-        return user.getSenha().equals(request.getSenha());
+
+        Boolean pass = user.getSenha().equals(request.getSenha());
+
+        if(pass.equals(true)){
+
+            throw  new ResponseStatusException( HttpStatus.ACCEPTED,"Logado!");
+        }else{
+            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST,"Não logado!");
+        }
+
     }
 
     @GetMapping("/email/{email}")
