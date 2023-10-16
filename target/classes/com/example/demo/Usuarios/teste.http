@@ -1,13 +1,9 @@
-PATCH localhost:1234/api/culturallis/alterarUsuarios/art
+POST localhost:1234/api/culturallis/login
 Content-Type: application/json
 
 
 {
-  "nomeUsuario":"arthur",
-  "dataNasc":"2001-01-01T00:00:00.000-02:00",
-  "bio":"Ebaa",
-  "email":"art",
-  "urlFoto":"com.squareup.picasso.PicassoDrawable@e778ece"
+  "email":"ana.damasceno@gmail",
+  "senha":"124"
 }
-
 
