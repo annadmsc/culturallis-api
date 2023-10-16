@@ -68,7 +68,7 @@ public class UsuariosController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/alterarUsuarios/{email}")
+    @PatchMapping("/alterarUsuarios/{email}")
     public ResponseEntity<String> alterarUsuario(@PathVariable String email, @RequestBody Usuarios usuariosAtt) {
         Optional<Usuarios> usuario = Optional.ofNullable(usuariosRepository.findByEmail(email));
 
@@ -80,10 +80,6 @@ public class UsuariosController {
             user.setTelefone(usuariosAtt.getTelefone());
             user.setBio(usuariosAtt.getBio());
             user.setCpf(usuariosAtt.getCpf());
-
-            if(usuariosAtt.getEmail() != null) {
-                user.setEmail(usuariosAtt.getEmail());
-            }
 
             user.setDataNasc(usuariosAtt.getDataNasc());
             user.setDataMudanca(new Date());
