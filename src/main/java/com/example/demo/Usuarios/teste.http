@@ -1,14 +1,13 @@
-PUT localhost:1234/api/culturallis/alterarUsuarios/teste02@.com
+PATCH localhost:1234/api/culturallis/alterarUsuarios/art
 Content-Type: application/json
 
 
-{"nomeUsuario":"teste02",
+{
+  "nomeUsuario":"arthur",
   "dataNasc":"2001-01-01T00:00:00.000-02:00",
-  "bio":"Eba",
-  "email": "babaca@gmail.com",
-  "urlFoto":"com.squareup.picasso.PicassoDrawable@aea6ad2"
+  "bio":"Ebaa",
+  "email":"art",
+  "urlFoto":"com.squareup.picasso.PicassoDrawable@e778ece"
 }
-
-
 
 
