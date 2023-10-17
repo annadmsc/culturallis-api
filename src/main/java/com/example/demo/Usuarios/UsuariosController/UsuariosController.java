@@ -41,11 +41,11 @@ public class UsuariosController {
 
         Boolean pass = user.getSenha().equals(request.getSenha());
 
-        if(pass.equals(true)){
+        if (pass.equals(true)) {
 
-            throw  new ResponseStatusException( HttpStatus.ACCEPTED,"Logado!");
-        }else{
-            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST,"Não logado!");
+            throw new ResponseStatusException(HttpStatus.ACCEPTED, "Logado!");
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não logado!");
         }
 
     }
@@ -86,22 +86,47 @@ public class UsuariosController {
 
         if (usuario.isPresent()) {
             Usuarios user = usuario.get();
-            user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
-            user.setNomeUsuario(usuariosAtt.getNomeUsuario());
-            user.setNomeCompleto(usuariosAtt.getNomeCompleto());
-            user.setTelefone(usuariosAtt.getTelefone());
+
+            if (usuariosAtt.getNomeUsuario() != null) {
+                user.setNomeUsuario(usuariosAtt.getNomeUsuario());
+            }
             user.setBio(usuariosAtt.getBio());
-            user.setCpf(usuariosAtt.getCpf());
+            user.setUrlFoto(usuariosAtt.getUrlFoto());
 
             user.setDataNasc(usuariosAtt.getDataNasc());
+
             user.setDataMudanca(new Date());
-            user.setDataDesativacao(usuariosAtt.getDataDesativacao());
-            user.setSenha(usuariosAtt.getSenha());
             usuariosRepository.save(user);
+
             return ResponseEntity.ok("Usuário atualizado!");
         }
-        return ResponseEntity.notFound().build();
 
+        return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping("/alterarUsuariosSensivel/{email}")
+    public ResponseEntity<String> alterarUsuarioSensivel(@PathVariable String email,
+            @RequestBody Usuarios usuariosAtt) {
+        Optional<Usuarios> usuario = Optional.ofNullable(usuariosRepository.findByEmail(email));
+
+        if (usuario.isPresent()) {
+            Usuarios user = usuario.get();
+
+            user.setSenha(usuariosAtt.getSenha());
+
+            user.setCpf(usuariosAtt.getCpf());
+
+            user.setTelefone(usuariosAtt.getTelefone());
+
+            user.setEmail(usuariosAtt.getEmail());
+
+            user.setDataMudanca(new Date());
+            usuariosRepository.save(user);
+
+            return ResponseEntity.ok("Usuário atualizado!");
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
 }
