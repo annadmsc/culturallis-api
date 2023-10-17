@@ -2,6 +2,7 @@ PATCH localhost:1234/api/culturallis/alterarUsuarios/ana.damasceno@gmail
 Content-Type: application/json
 
 {
-  "nomeUsuario": "ane"
+  "nomeUsuario": "ane",
+  "fkCulGeneros": null
 }
 

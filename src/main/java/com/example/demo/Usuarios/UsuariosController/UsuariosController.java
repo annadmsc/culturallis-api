@@ -87,9 +87,7 @@ public class UsuariosController {
         if (usuario.isPresent()) {
             Usuarios user = usuario.get();
 
-            if (usuariosAtt.getfk_cul_generos_id() != -1) {
-                user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
-            }
+          
 
             user.setBio(usuariosAtt.getBio());
 
