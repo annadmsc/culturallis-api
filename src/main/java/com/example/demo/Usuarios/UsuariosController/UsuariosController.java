@@ -91,6 +91,14 @@ public class UsuariosController {
                 user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
             }
 
+
+
+            user.setBio(usuariosAtt.getBio());
+
+            user.setCpf(usuariosAtt.getCpf());
+
+            user.setTelefone(usuariosAtt.getTelefone());
+
             if (usuariosAtt.getNomeUsuario() != null) {
                 user.setNomeUsuario(usuariosAtt.getNomeUsuario());
             }
