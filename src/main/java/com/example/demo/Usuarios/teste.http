@@ -1,9 +1,7 @@
-POST localhost:1234/api/culturallis/login
+PATCH localhost:1234/api/culturallis/alterarUsuarios/ana.damasceno@gmail
 Content-Type: application/json
 
-
 {
-  "email":"ana.damasceno@gmail",
-  "senha":"124"
+  "nomeUsuario": "ane"
 }
 

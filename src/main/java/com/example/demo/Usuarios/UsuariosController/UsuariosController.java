@@ -86,22 +86,44 @@ public class UsuariosController {
 
         if (usuario.isPresent()) {
             Usuarios user = usuario.get();
-            user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
-            user.setNomeUsuario(usuariosAtt.getNomeUsuario());
-            user.setNomeCompleto(usuariosAtt.getNomeCompleto());
-            user.setTelefone(usuariosAtt.getTelefone());
-            user.setBio(usuariosAtt.getBio());
-            user.setCpf(usuariosAtt.getCpf());
 
-            user.setDataNasc(usuariosAtt.getDataNasc());
+            if (usuariosAtt.getfk_cul_generos_id() != -1) {
+                user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
+            }
+
+            if (usuariosAtt.getNomeUsuario() != null) {
+                user.setNomeUsuario(usuariosAtt.getNomeUsuario());
+            }
+
+            if (usuariosAtt.getNomeCompleto() != null) {
+                user.setNomeCompleto(usuariosAtt.getNomeCompleto());
+            }
+
+
+            if (usuariosAtt.getCpf() != null) {
+                user.setCpf(usuariosAtt.getCpf());
+            }
+
+            if (usuariosAtt.getDataNasc() != null) {
+                user.setDataNasc(usuariosAtt.getDataNasc());
+            }
+
+            if (usuariosAtt.getDataDesativacao() != null) {
+                user.setDataDesativacao(usuariosAtt.getDataDesativacao());
+            }
+
+            if (usuariosAtt.getSenha() != null) {
+                user.setSenha(usuariosAtt.getSenha());
+            }
+
             user.setDataMudanca(new Date());
-            user.setDataDesativacao(usuariosAtt.getDataDesativacao());
-            user.setSenha(usuariosAtt.getSenha());
             usuariosRepository.save(user);
+
             return ResponseEntity.ok("Usuário atualizado!");
         }
-        return ResponseEntity.notFound().build();
 
+        return ResponseEntity.notFound().build();
     }
+
 
 }
