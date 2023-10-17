@@ -93,6 +93,8 @@ public class UsuariosController {
             user.setBio(usuariosAtt.getBio());
             user.setUrlFoto(usuariosAtt.getUrlFoto());
 
+            user.setDataNasc(usuariosAtt.getDataNasc());
+
             user.setDataMudanca(new Date());
             usuariosRepository.save(user);
 
