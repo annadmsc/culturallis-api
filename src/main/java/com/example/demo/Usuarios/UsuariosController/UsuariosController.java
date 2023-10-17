@@ -91,8 +91,6 @@ public class UsuariosController {
                 user.setfk_cul_generos_id(usuariosAtt.getfk_cul_generos_id());
             }
 
-
-
             user.setBio(usuariosAtt.getBio());
 
             user.setCpf(usuariosAtt.getCpf());
@@ -107,22 +105,36 @@ public class UsuariosController {
                 user.setNomeCompleto(usuariosAtt.getNomeCompleto());
             }
 
-
-            if (usuariosAtt.getCpf() != null) {
-                user.setCpf(usuariosAtt.getCpf());
-            }
-
-            if (usuariosAtt.getDataNasc() != null) {
-                user.setDataNasc(usuariosAtt.getDataNasc());
-            }
-
             if (usuariosAtt.getDataDesativacao() != null) {
                 user.setDataDesativacao(usuariosAtt.getDataDesativacao());
             }
 
-            if (usuariosAtt.getSenha() != null) {
-                user.setSenha(usuariosAtt.getSenha());
-            }
+
+
+            user.setDataMudanca(new Date());
+            usuariosRepository.save(user);
+
+            return ResponseEntity.ok("Usuário atualizado!");
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping("/alterarUsuariosSensivel/{email}")
+    public ResponseEntity<String> alterarUsuarioSensivel(@PathVariable String email, @RequestBody Usuarios usuariosAtt) {
+        Optional<Usuarios> usuario = Optional.ofNullable(usuariosRepository.findByEmail(email));
+
+        if (usuario.isPresent()) {
+            Usuarios user = usuario.get();
+
+
+            user.setSenha(usuariosAtt.getSenha());
+
+            user.setCpf(usuariosAtt.getCpf());
+
+            user.setTelefone(usuariosAtt.getTelefone());
+
+            user.setEmail(usuariosAtt.getEmail());
 
             user.setDataMudanca(new Date());
             usuariosRepository.save(user);
