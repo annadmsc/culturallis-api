@@ -41,11 +41,11 @@ public class UsuariosController {
 
         Boolean pass = user.getSenha().equals(request.getSenha());
 
-        if(pass.equals(true)){
+        if (pass.equals(true)) {
 
-            throw  new ResponseStatusException( HttpStatus.ACCEPTED,"Logado!");
-        }else{
-            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST,"Não logado!");
+            throw new ResponseStatusException(HttpStatus.ACCEPTED, "Logado!");
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não logado!");
         }
 
     }
@@ -87,11 +87,11 @@ public class UsuariosController {
         if (usuario.isPresent()) {
             Usuarios user = usuario.get();
 
-
             if (usuariosAtt.getNomeUsuario() != null) {
                 user.setNomeUsuario(usuariosAtt.getNomeUsuario());
             }
-            
+            user.setBio(usuariosAtt.getBio());
+            user.setUrlFoto(usuariosAtt.getUrlFoto());
 
             user.setDataMudanca(new Date());
             usuariosRepository.save(user);
@@ -103,12 +103,12 @@ public class UsuariosController {
     }
 
     @PatchMapping("/alterarUsuariosSensivel/{email}")
-    public ResponseEntity<String> alterarUsuarioSensivel(@PathVariable String email, @RequestBody Usuarios usuariosAtt) {
+    public ResponseEntity<String> alterarUsuarioSensivel(@PathVariable String email,
+            @RequestBody Usuarios usuariosAtt) {
         Optional<Usuarios> usuario = Optional.ofNullable(usuariosRepository.findByEmail(email));
 
         if (usuario.isPresent()) {
             Usuarios user = usuario.get();
-
 
             user.setSenha(usuariosAtt.getSenha());
 
@@ -126,6 +126,5 @@ public class UsuariosController {
 
         return ResponseEntity.notFound().build();
     }
-
 
 }
