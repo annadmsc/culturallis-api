@@ -88,21 +88,10 @@ public class UsuariosController {
             Usuarios user = usuario.get();
 
 
-            
-
             if (usuariosAtt.getNomeUsuario() != null) {
                 user.setNomeUsuario(usuariosAtt.getNomeUsuario());
             }
-
-            if (usuariosAtt.getNomeCompleto() != null) {
-                user.setNomeCompleto(usuariosAtt.getNomeCompleto());
-            }
-
-            if (usuariosAtt.getDataDesativacao() != null) {
-                user.setDataDesativacao(usuariosAtt.getDataDesativacao());
-            }
-
-
+            
 
             user.setDataMudanca(new Date());
             usuariosRepository.save(user);
