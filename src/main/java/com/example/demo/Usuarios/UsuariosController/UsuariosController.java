@@ -87,13 +87,8 @@ public class UsuariosController {
         if (usuario.isPresent()) {
             Usuarios user = usuario.get();
 
-          
 
-            user.setBio(usuariosAtt.getBio());
-
-            user.setCpf(usuariosAtt.getCpf());
-
-            user.setTelefone(usuariosAtt.getTelefone());
+            
 
             if (usuariosAtt.getNomeUsuario() != null) {
                 user.setNomeUsuario(usuariosAtt.getNomeUsuario());
