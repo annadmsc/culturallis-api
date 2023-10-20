@@ -5,6 +5,7 @@ import com.example.demo.Posts.PostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.Pagination.Pagination;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,13 @@ public class PostsController {
 
     @GetMapping("/listarPosts")
     public List<Post> getContents() {
+
+
+
+        List<Post> inputData = postRepository.findAll();
+        Pagination pagination = new Pagination(inputData);
+
+        List<Post> currentPageData = pagination.getCurrentPageData();
         return postRepository.findAll();
     }
 
