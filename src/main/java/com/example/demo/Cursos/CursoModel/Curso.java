@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "cul_curso")
+@Table(name = "cul_cursos")
 public class Curso {
 
     @Id
@@ -14,12 +14,12 @@ public class Curso {
 
     private long fk_cul_categorias_id;
 
-    private long fk_cul_usuarios_id;
+    @Column(name = "fkCulUsuariosId")
+    private long fkCulUsuariosId;
 
     private String nome;
 
     private String descricao;
-
 
     private Date data_criacao;
 
@@ -27,11 +27,11 @@ public class Curso {
 
     private Date data_desativacao;
 
-
-    public Curso(long pk_id, long fk_cul_categorias_id, long fk_cul_usuarios_id, String nome, String descricao, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public Curso(long pk_id, long fk_cul_categorias_id, long fkCulUsuariosId, String nome, String descricao,
+            Date data_criacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
         this.fk_cul_categorias_id = fk_cul_categorias_id;
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+        this.fkCulUsuariosId = fkCulUsuariosId;
         this.nome = nome;
         this.descricao = descricao;
         this.data_criacao = data_criacao;
@@ -39,9 +39,10 @@ public class Curso {
         this.data_desativacao = data_desativacao;
     }
 
-    public Curso(long fk_cul_categorias_id, long fk_cul_usuarios_id, String nome, String descricao, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public Curso(long fk_cul_categorias_id, long fkCulUsuariosId, String nome, String descricao, Date data_criacao,
+            Date data_mudanca, Date data_desativacao) {
         this.fk_cul_categorias_id = fk_cul_categorias_id;
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+        this.fkCulUsuariosId = fkCulUsuariosId;
         this.nome = nome;
         this.descricao = descricao;
         this.data_criacao = data_criacao;
@@ -68,12 +69,12 @@ public class Curso {
         this.fk_cul_categorias_id = fk_cul_categorias_id;
     }
 
-    public long getFk_cul_usuarios_id() {
-        return fk_cul_usuarios_id;
+    public long getfkCulUsuariosId() {
+        return fkCulUsuariosId;
     }
 
-    public void setFk_cul_usuarios_id(long fk_cul_usuarios_id) {
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+    public void setfkCulUsuariosId(long fkCulUsuariosId) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
     }
 
     public String getNome() {
@@ -121,7 +122,7 @@ public class Curso {
         return "Curso{" +
                 "pk_id=" + pk_id +
                 ", fk_cul_categorias_id=" + fk_cul_categorias_id +
-                ", fk_cul_usuarios_id=" + fk_cul_usuarios_id +
+                ", fkCulUsuariosId=" + fkCulUsuariosId +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", data_criacao=" + data_criacao +

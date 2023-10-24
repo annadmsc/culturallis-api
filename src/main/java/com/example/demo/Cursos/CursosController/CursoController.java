@@ -2,13 +2,9 @@ package com.example.demo.Cursos.CursosController;
 
 import com.example.demo.Cursos.CursoModel.Curso;
 import com.example.demo.Cursos.CursoRepository;
-import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.Categorias.CategoriasRepository;
-import com.example.demo.Seguidores.SeguidorModel.Seguidor;
 
 import java.util.Date;
 import java.util.List;
@@ -30,6 +26,10 @@ public class CursoController {
         return cursoRepository.findAll();
     }
 
+    @GetMapping("/meusCursos/{fk_cul_usuarios_id}")
+    public List<Curso> findCoursesByUser(@PathVariable Long fk_cul_usuarios_id) {
+        return cursoRepository.findAllByFkCulUsuariosId(fk_cul_usuarios_id);
+    }
 
     @PostMapping("/inserirCurso")
     public ResponseEntity<String> inserirCurso(@RequestBody Curso curso) {
@@ -61,7 +61,7 @@ public class CursoController {
             crs.setDescricao(cursoAtt.getDescricao());
             crs.setNome(cursoAtt.getNome());
             crs.setFk_cul_categorias_id(cursoAtt.getFk_cul_categorias_id());
-            crs.setFk_cul_usuarios_id(cursoAtt.getFk_cul_usuarios_id());
+            crs.setfkCulUsuariosId(cursoAtt.getfkCulUsuariosId());
             crs.setData_criacao(cursoAtt.getData_criacao());
             crs.setData_mudanca(new Date());
             crs.setData_desativacao(cursoAtt.getData_desativacao());
