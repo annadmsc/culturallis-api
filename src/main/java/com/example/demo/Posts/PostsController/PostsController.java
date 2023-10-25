@@ -25,8 +25,6 @@ public class PostsController {
     @GetMapping("/listarPosts")
     public List<Post> getContents() {
 
-
-
         List<Post> inputData = postRepository.findAll();
         Pagination pagination = new Pagination(inputData);
 
