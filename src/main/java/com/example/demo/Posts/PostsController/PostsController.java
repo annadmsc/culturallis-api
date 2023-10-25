@@ -2,6 +2,8 @@ package com.example.demo.Posts.PostsController;
 
 import com.example.demo.Posts.PostModel.Post;
 import com.example.demo.Posts.PostsRepository;
+import com.example.demo.Usuarios.UsuariosModel.Usuarios;
+import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,12 @@ import java.util.Optional;
 public class PostsController {
 
     private final PostsRepository postRepository;
+    private final UsuariosRepository usuariosRepository;
 
     @Autowired
-    public PostsController(PostsRepository postRepository) {
+    public PostsController(PostsRepository postRepository, UsuariosRepository usuariosRepository) {
         this.postRepository = postRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
     @GetMapping("/listarPosts")
@@ -31,6 +35,16 @@ public class PostsController {
         List<Post> currentPageData = pagination.getCurrentPageData();
         return postRepository.findAll();
     }
+
+
+    @GetMapping("/meusPosts/{email}")
+    public List<Post> findUsersByEmail(@PathVariable String email) {
+
+        Usuarios user = usuariosRepository.findByEmail(String.valueOf(email));
+
+        return postRepository.findByFkCulUsuariosId(user.getpkId());
+    }
+
 
     @PostMapping("/criarPost")
     public ResponseEntity<String> createPost(@RequestBody Post post) {

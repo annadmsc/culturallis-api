@@ -11,7 +11,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pk_id;
 
-    private long fk_cul_usuarios_id;
+    @Column(name = "fkCulUsuariosId")
+    private long fkCulUsuariosId;
 
     private String descricao;
 
@@ -28,7 +29,7 @@ public class Post {
 
     public Post(long fk_cul_usuarios_id, String descricao, String url_midia, Date data_criacao, Date data_mudanca,
             Date data_desativacao) {
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+        this.fkCulUsuariosId = fk_cul_usuarios_id;
         this.descricao = descricao;
         this.url_midia = url_midia;
         this.data_criacao = data_criacao;
@@ -39,7 +40,7 @@ public class Post {
     public Post(long pk_id, long fk_cul_usuarios_id, String descricao, String url_midia, Date data_criacao,
             Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+        this.fkCulUsuariosId = fk_cul_usuarios_id;
         this.descricao = descricao;
         this.url_midia = url_midia;
         this.data_criacao = data_criacao;
@@ -56,11 +57,11 @@ public class Post {
     }
 
     public long getFk_cul_usuarios_id() {
-        return fk_cul_usuarios_id;
+        return fkCulUsuariosId;
     }
 
     public void setFk_cul_usuarios_id(long fk_cul_usuarios_id) {
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+        this.fkCulUsuariosId = fk_cul_usuarios_id;
     }
 
     public String getDescricao() {
@@ -107,7 +108,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "pk_id=" + pk_id +
-                ", fk_cul_usuarios_id=" + fk_cul_usuarios_id +
+                ", fk_cul_usuarios_id=" + fkCulUsuariosId +
                 ", descricao='" + descricao + '\'' +
                 ", url_midia='" + url_midia + '\'' +
                 ", data_criacao=" + data_criacao +
