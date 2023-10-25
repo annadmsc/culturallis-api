@@ -2,6 +2,8 @@ package com.example.demo.Cursos.CursosController;
 
 import com.example.demo.Cursos.CursoModel.Curso;
 import com.example.demo.Cursos.CursoRepository;
+import com.example.demo.Usuarios.UsuariosModel.Usuarios;
+import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +17,25 @@ import java.util.Optional;
 public class CursoController {
 
     private final CursoRepository cursoRepository;
+    private final UsuariosRepository usuariosRepository;
 
     @Autowired
-    public CursoController(CursoRepository cursoRepository) {
+    public CursoController(CursoRepository cursoRepository, UsuariosRepository usuariosRepository) {
         this.cursoRepository = cursoRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
-    @GetMapping("/listarCursos")
+        @GetMapping("/listarCursos")
     public List<Curso> getCursos() {
         return cursoRepository.findAll();
     }
 
-    @GetMapping("/meusCursos/{fk_cul_usuarios_id}")
-    public List<Curso> findCoursesByUser(@PathVariable Long fk_cul_usuarios_id) {
-        return cursoRepository.findAllByFkCulUsuariosId(fk_cul_usuarios_id);
+        @GetMapping("/meusCursos/{email}")
+    public List<Curso> findCoursesByUser(@PathVariable String email) {
+
+            Usuarios user = usuariosRepository.findByEmail(String.valueOf(email));
+
+                return cursoRepository.findAllByFkCulUsuariosId(user.getpkId());
     }
 
     @PostMapping("/inserirCurso")
