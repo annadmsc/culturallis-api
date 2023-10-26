@@ -15,30 +15,28 @@ public class Curtida {
 
     private long fk_cul_posts_id;
 
-    private Date data_criacao;
+    // private Date data_criacao;
 
-    private Date data_mudanca;
-
-    private Date data_desativacao;
+    // private Date data_mudanca;
 
     public Curtida() {
     }
 
-    public Curtida(long fk_cul_usuarios_id, long fk_cul_posts_id, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public Curtida(long fk_cul_usuarios_id, long fk_cul_posts_id, Date data_criacao, Date data_mudanca) {
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
         this.fk_cul_posts_id = fk_cul_posts_id;
-        this.data_criacao = data_criacao;
-        this.data_mudanca = data_mudanca;
-        this.data_desativacao = data_desativacao;
+        // this.data_criacao = data_criacao;
+        // this.data_mudanca = data_mudanca;
+
     }
 
-    public Curtida(long pk_id, long fk_cul_usuarios_id, long fk_cul_posts_id, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public Curtida(long pk_id, long fk_cul_usuarios_id, long fk_cul_posts_id, Date data_criacao, Date data_mudanca) {
         this.pk_id = pk_id;
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
         this.fk_cul_posts_id = fk_cul_posts_id;
-        this.data_criacao = data_criacao;
-        this.data_mudanca = data_mudanca;
-        this.data_desativacao = data_desativacao;
+        // this.data_criacao = data_criacao;
+        // this.data_mudanca = data_mudanca;
+
     }
 
     public long getPk_id() {
@@ -65,29 +63,21 @@ public class Curtida {
         this.fk_cul_posts_id = fk_cul_posts_id;
     }
 
-    public Date getData_criacao() {
-        return data_criacao;
-    }
+    // public Date getData_criacao() {
+    // return data_criacao;
+    // }
 
-    public void setData_criacao(Date data_criacao) {
-        this.data_criacao = data_criacao;
-    }
+    // public void setData_criacao(Date data_criacao) {
+    // this.data_criacao = data_criacao;
+    // }
 
-    public Date getData_mudanca() {
-        return data_mudanca;
-    }
+    // public Date getData_mudanca() {
+    // return data_mudanca;
+    // }
 
-    public void setData_mudanca(Date data_mudanca) {
-        this.data_mudanca = data_mudanca;
-    }
-
-    public Date getData_desativacao() {
-        return data_desativacao;
-    }
-
-    public void setData_desativacao(Date data_desativacao) {
-        this.data_desativacao = data_desativacao;
-    }
+    // public void setData_mudanca(Date data_mudanca) {
+    // this.data_mudanca = data_mudanca;
+    // }
 
     @Override
     public String toString() {
@@ -95,9 +85,8 @@ public class Curtida {
                 "pk_id=" + pk_id +
                 ", fk_cul_usuarios_id=" + fk_cul_usuarios_id +
                 ", fk_cul_posts_id=" + fk_cul_posts_id +
-                ", data_criacao=" + data_criacao +
-                ", data_mudanca=" + data_mudanca +
-                ", data_desativacao=" + data_desativacao +
+                // ", data_criacao=" + data_criacao +
+                // ", data_mudanca=" + data_mudanca +
                 '}';
     }
 }

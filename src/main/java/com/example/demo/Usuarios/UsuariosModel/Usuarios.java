@@ -16,7 +16,6 @@ public class Usuarios {
 
     private String nomeUsuario;
 
-
     private String senha;
 
     private String nomeCompleto;
@@ -37,6 +36,7 @@ public class Usuarios {
 
     private Date dataMudanca;
 
+    @Column(name = "data_desativacao")
     private Date dataDesativacao;
 
     public Usuarios(long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String senha, String urlFoto,
@@ -69,7 +69,7 @@ public class Usuarios {
         this.dataCriacao = dataCriacao;
         this.dataMudanca = dataMudanca;
         this.dataDesativacao = dataDesativacao;
-        this.senha= senha;
+        this.senha = senha;
     }
 
     public Usuarios(Long fk_cul_generos_id, String nomeUsuario, String nomeCompleto, String urlFoto,
@@ -87,7 +87,7 @@ public class Usuarios {
         this.dataCriacao = dataCriacao;
         this.dataMudanca = dataMudanca;
         this.dataDesativacao = dataDesativacao;
-        this.senha= senha;
+        this.senha = senha;
     }
 
     public Usuarios() {
