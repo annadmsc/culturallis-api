@@ -1,17 +1,21 @@
 package com.example.demo.Posts.PostsController;
 
+import com.example.demo.Curtidas.CurtidaModel.Curtida;
+import com.example.demo.Curtidas.CurtidasRepository;
 import com.example.demo.Posts.PostModel.Post;
+import com.example.demo.Posts.PostModel.ReturnPostsHome;
 import com.example.demo.Posts.PostsRepository;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.Pagination.Pagination;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static java.util.Optional.ofNullable;
 
 @RestController
 @RequestMapping("/api/culturallis")
@@ -20,22 +24,58 @@ public class PostsController {
     private final PostsRepository postRepository;
     private final UsuariosRepository usuariosRepository;
 
+    private final CurtidasRepository curtidasRepository;
+
     @Autowired
-    public PostsController(PostsRepository postRepository, UsuariosRepository usuariosRepository) {
+    public PostsController(PostsRepository postRepository, UsuariosRepository usuariosRepository, CurtidasRepository curtidasRepository) {
         this.postRepository = postRepository;
         this.usuariosRepository = usuariosRepository;
+        this.curtidasRepository = curtidasRepository;
     }
 
-    @GetMapping("/listarPosts")
-    public List<Post> getContents() {
+    @GetMapping("/listarPosts/{email}")
+    public List<ReturnPostsHome> getContents(@PathVariable String email) {
 
-        List<Post> inputData = postRepository.findAll();
-        Pagination pagination = new Pagination(inputData);
+        List<Post> allPosts = postRepository.findAll();
+        List<ReturnPostsHome> postsHome = new ArrayList<>();
 
-        List<Post> currentPageData = pagination.getCurrentPageData();
-        return postRepository.findAll();
+        for (Post post : allPosts) {
+            Optional<Usuarios> userOptional = usuariosRepository.findById(post.getFk_cul_usuarios_id());
+
+            userOptional.ifPresent(usuario -> {
+                Boolean curtiu = false;
+
+                Curtida cr = curtidasRepository.findFirstByFkCulPostsIdOrderByDataCriacaoDesc(post.getPk_id());
+
+                if (cr != null) {
+                    if (cr.getData_desativacao() != null
+                            && cr.getFk_cul_usuarios_id() == usuariosRepository.findByEmail(email).getpkId()) {
+                        curtiu = true;
+                    } else {
+                        curtiu = false;
+                    }
+                } else {
+                    curtiu = false;
+                }
+
+                ReturnPostsHome returnPostsHome = new ReturnPostsHome(
+                        post.getPk_id(),
+                        post.getFk_cul_usuarios_id(),
+                        post.getDescricao(),
+                        post.getUrl_midia(),
+                        post.getData_criacao(),
+                        post.getData_mudanca(),
+                        post.getData_desativacao(),
+                        usuario.getUrlFoto(),
+                        usuario.getNomeUsuario(),
+                        Boolean.parseBoolean(String.valueOf(curtiu)
+                        ));
+                postsHome.add(returnPostsHome);
+            });
+        }
+
+        return postsHome;
     }
-
 
     @GetMapping("/meusPosts/{email}")
     public List<Post> findUsersByEmail(@PathVariable String email) {
@@ -44,7 +84,6 @@ public class PostsController {
 
         return postRepository.findByFkCulUsuariosId(user.getpkId());
     }
-
 
     @PostMapping("/criarPost")
     public ResponseEntity<String> createPost(@RequestBody Post post) {
