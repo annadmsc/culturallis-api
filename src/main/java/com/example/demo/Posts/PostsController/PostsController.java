@@ -3,6 +3,7 @@ package com.example.demo.Posts.PostsController;
 import com.example.demo.Curtidas.CurtidaModel.Curtida;
 import com.example.demo.Curtidas.CurtidasRepository;
 import com.example.demo.Posts.PostModel.Post;
+import com.example.demo.Posts.PostModel.ReturnOwnPostsHome;
 import com.example.demo.Posts.PostModel.ReturnPostsHome;
 import com.example.demo.Posts.PostsRepository;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
@@ -39,6 +40,7 @@ public class PostsController {
         List<Post> allPosts = postRepository.findAll();
         List<ReturnPostsHome> postsHome = new ArrayList<>();
 
+        allPosts.sort((a, b) -> a.getData_criacao().after(b.getData_criacao()) ? -1 : 1);
         for (Post post : allPosts) {
             Optional<Usuarios> userOptional = usuariosRepository.findById(post.getFk_cul_usuarios_id());
 
@@ -78,11 +80,30 @@ public class PostsController {
     }
 
     @GetMapping("/meusPosts/{email}")
-    public List<Post> findUsersByEmail(@PathVariable String email) {
+    public List<ReturnOwnPostsHome> findUsersByEmail(@PathVariable String email) {
 
         Usuarios user = usuariosRepository.findByEmail(String.valueOf(email));
 
-        return postRepository.findByFkCulUsuariosId(user.getpkId());
+        List<Post> posts =  postRepository.findByFkCulUsuariosId(user.getpkId());
+
+        List<ReturnOwnPostsHome> returnOwnPostsHomes = new ArrayList<>();
+
+        for (Post post : posts){
+            ReturnOwnPostsHome returnPostsHome = new ReturnOwnPostsHome(
+                    post.getPk_id(),
+                    post.getFk_cul_usuarios_id(),
+                    post.getDescricao(),
+                    post.getUrl_midia(),
+                    post.getData_criacao(),
+                    post.getData_mudanca(),
+                    post.getData_desativacao(),
+                    user.getUrlFoto(),
+                    user.getNomeUsuario()
+            );
+            returnOwnPostsHomes.add(returnPostsHome);
+        }
+
+        return returnOwnPostsHomes;
     }
 
     @PostMapping("/criarPost/{email}")
