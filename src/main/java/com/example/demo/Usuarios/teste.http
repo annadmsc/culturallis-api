@@ -1,2 +1,1 @@
-GET localhost:1234/api/culturallis/meusPosts/ana.damasceno@gmail.com
-
+GET localhost:1234/api/culturallis/listarPosts/ana.damasceno@gmail.com

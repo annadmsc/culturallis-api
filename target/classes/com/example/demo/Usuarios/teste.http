@@ -1,2 +1,7 @@
-GET localhost:1234/api/culturallis/meusPosts/ana.damasceno@gmail.com
+PATCH localhost:1234/api/culturallis/alterarUsuarios/ana.damasceno@gmail.com
+Content-Type: application/json
+
+{
+  "urlFoto": "blablabla.com"
+}
 

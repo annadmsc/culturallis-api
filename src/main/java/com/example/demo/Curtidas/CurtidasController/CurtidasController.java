@@ -56,7 +56,6 @@ public class CurtidasController {
             pst.setFk_cul_usuarios_id(postAtt.getFk_cul_usuarios_id());
             pst.setData_criacao(postAtt.getData_criacao());
             pst.setData_mudanca(new Date());
-            pst.setData_desativacao(postAtt.getData_desativacao());
             postRepository.save(pst);
             return ResponseEntity.ok("Post atualizado!");
         }
