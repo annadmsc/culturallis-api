@@ -85,9 +85,11 @@ public class PostsController {
         return postRepository.findByFkCulUsuariosId(user.getpkId());
     }
 
-    @PostMapping("/criarPost")
-    public ResponseEntity<String> createPost(@RequestBody Post post) {
+    @PostMapping("/criarPost/{email}")
+    public ResponseEntity<String> createPost(@PathVariable String email, @RequestBody Post post) {
         post.setData_criacao(new Date());
+        Usuarios usuarios = usuariosRepository.findByEmail(email);
+        post.setFk_cul_usuarios_id(usuarios.getpkId());
         try {
             postRepository.save(post);
             return ResponseEntity.ok("Post Inserido");
