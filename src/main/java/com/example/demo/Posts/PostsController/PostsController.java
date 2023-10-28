@@ -47,7 +47,7 @@ public class PostsController {
             userOptional.ifPresent(usuario -> {
                 Boolean curtiu;
 
-                Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(post.getPk_id(), usuariosRepository.findByEmail(user.getEmail()).getpkId());
+                Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(post.getPk_id(), usuariosRepository.findByEmail(usuario.getEmail()).getpkId());
 
                 if (cr != null) {
                     if (cr.getData_desativacao() == null) {
