@@ -45,13 +45,12 @@ public class PostsController {
             Optional<Usuarios> userOptional = usuariosRepository.findById(post.getFk_cul_usuarios_id());
 
             userOptional.ifPresent(usuario -> {
-                Boolean curtiu = false;
+                Boolean curtiu;
 
-                Curtida cr = curtidasRepository.findFirstByFkCulPostsIdOrderByDataCriacaoDesc(post.getPk_id());
+                Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(post.getPk_id(), usuariosRepository.findByEmail(user.getEmail()).getpkId());
 
                 if (cr != null) {
-                    if (cr.getData_desativacao() != null
-                            && cr.getFk_cul_usuarios_id() == usuariosRepository.findByEmail(email).getpkId()) {
+                    if (cr.getData_desativacao() == null) {
                         curtiu = true;
                     } else {
                         curtiu = false;
@@ -72,7 +71,10 @@ public class PostsController {
                         usuario.getNomeUsuario(),
                         Boolean.parseBoolean(String.valueOf(curtiu)
                         ));
-                postsHome.add(returnPostsHome);
+
+                if(post.getData_desativacao() == null){
+                    postsHome.add(returnPostsHome);
+                }
             });
         }
 
@@ -89,6 +91,21 @@ public class PostsController {
         List<ReturnOwnPostsHome> returnOwnPostsHomes = new ArrayList<>();
 
         for (Post post : posts){
+
+            Boolean curtiu;
+
+            Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(post.getPk_id(), usuariosRepository.findByEmail(user.getEmail()).getpkId());
+
+            if (cr != null) {
+                if (cr.getData_desativacao() == null) {
+                    curtiu = true;
+                } else {
+                    curtiu = false;
+                }
+            } else {
+                curtiu = false;
+            }
+
             ReturnOwnPostsHome returnPostsHome = new ReturnOwnPostsHome(
                     post.getPk_id(),
                     post.getFk_cul_usuarios_id(),
@@ -98,10 +115,16 @@ public class PostsController {
                     post.getData_mudanca(),
                     post.getData_desativacao(),
                     user.getUrlFoto(),
-                    user.getNomeUsuario()
+                    user.getNomeUsuario(),
+                    curtiu,
+                    curtiu
             );
-            returnOwnPostsHomes.add(returnPostsHome);
+            if(post.getData_desativacao() == null ){
+                returnOwnPostsHomes.add(returnPostsHome);
+            }
         }
+
+        returnOwnPostsHomes.sort((a, b) -> a.getData_criacao().after(b.getData_criacao()) ? -1 : 1);
 
         return returnOwnPostsHomes;
     }

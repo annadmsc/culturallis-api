@@ -1,9 +1,10 @@
 package com.example.demo.Curtidas.CurtidasController;
 
-import com.example.demo.Posts.PostModel.Post;
-import com.example.demo.Posts.PostsRepository;
+import com.example.demo.Curtidas.CurtidaModel.Curtida;
+import com.example.demo.Curtidas.CurtidasRepository;
+import com.example.demo.Usuarios.UsuariosModel.Usuarios;
+import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -14,52 +15,51 @@ import java.util.Optional;
 @RequestMapping("/api/culturallis")
 public class CurtidasController {
 
-    private final PostsRepository postRepository;
+    private final CurtidasRepository curtidasRepository;
+    private final UsuariosRepository usuariosRepository;
 
     @Autowired
-    public CurtidasController(PostsRepository postRepository) {
-        this.postRepository = postRepository;
+    public CurtidasController(CurtidasRepository curtidasRepository, UsuariosRepository usuariosRepository) {
+        this.curtidasRepository = curtidasRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
     @GetMapping("/listarCurtidas")
-    public List<Post> getContents() {
-        return postRepository.findAll();
+    public List<Curtida> listarCurtidas(){
+        return curtidasRepository.findAll();
     }
 
-    @PostMapping("/curtir")
-    public ResponseEntity<String> createPost(@RequestBody Post post) {
-        post.setData_criacao(new Date());
-        try {
-            postRepository.save(post);
-            return ResponseEntity.ok("Post Inserido");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+    @PostMapping("/curtirPost/{postId}/{email}")
+    public Curtida togglePostLike(@PathVariable long postId, @PathVariable String email){
+        Usuarios usuarios = usuariosRepository.findByEmail(email);
+        Optional<Curtida> postsHome = Optional.ofNullable(curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(postId, usuarios.getpkId()));
+        Curtida curtida = new Curtida();
+
+        postsHome.ifPresent(cr -> {
+            if(cr.getData_desativacao() == null){
+                curtida.setPk_id(cr.getPk_id());
+                curtida.setFk_cul_posts_id(cr.getFk_cul_posts_id());
+                curtida.setFk_cul_usuarios_id(cr.getFk_cul_usuarios_id());
+                curtida.setData_criacao(cr.getData_criacao());
+                curtida.setData_mudanca(new Date());
+                curtida.setData_desativacao(new Date());
+            }else{
+                curtida.setFk_cul_posts_id(postId);
+                curtida.setFk_cul_usuarios_id(usuarios.getpkId());
+                curtida.setData_criacao(new Date());
+            }
+        });
+
+        if(!postsHome.isPresent()){
+            curtida.setFk_cul_posts_id(postId);
+            curtida.setFk_cul_usuarios_id(usuarios.getpkId());
+            curtida.setData_criacao(new Date());
         }
+
+        curtidasRepository.save(curtida);
+
+
+        return curtida;
     }
 
-    @PostMapping("/excluirCurtida")
-    public ResponseEntity<String> deletePost(@RequestParam Long id) {
-        Optional<Post> postToDel = postRepository.findById(id);
-        if (postToDel.isPresent()) {
-            postRepository.deleteById(id);
-            return ResponseEntity.ok("Post excluído!");
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping("/alterarCurtida/{id}")
-    public ResponseEntity<String> alterarPost(@PathVariable Long id, @RequestBody Post postAtt) {
-        Optional<Post> post = postRepository.findById(id);
-        if (post.isPresent()) {
-            Post pst = post.get();
-            pst.setDescricao(postAtt.getDescricao());
-            pst.setFk_cul_usuarios_id(postAtt.getFk_cul_usuarios_id());
-            pst.setData_criacao(postAtt.getData_criacao());
-            pst.setData_mudanca(new Date());
-            postRepository.save(pst);
-            return ResponseEntity.ok("Post atualizado!");
-        }
-        return ResponseEntity.notFound().build();
-
-    }
 }
