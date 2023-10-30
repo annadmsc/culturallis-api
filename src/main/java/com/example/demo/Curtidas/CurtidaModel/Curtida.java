@@ -11,7 +11,8 @@ public class Curtida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pk_id;
 
-    private long fk_cul_usuarios_id;
+    @Column(name = "fk_cul_usuarios_id")
+    private long fkCulUsuariosId;
 
     @Column(name = "fk_cul_posts_id")
     private long fkCulPostsId;
@@ -33,17 +34,17 @@ public class Curtida {
         this.data_desativacao = data_desativacao;
     }
 
-    public Curtida(long fk_cul_usuarios_id, long fkCulPostsId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+    public Curtida(long fkCulUsuariosId, long fkCulPostsId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
         this.fkCulPostsId = fkCulPostsId;
          this.dataCriacao = dataCriacao;
          this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
 
-    public Curtida(long pk_id, long fk_cul_usuarios_id, long fkCulPostsId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
+    public Curtida(long pk_id, long fkCulUsuariosId, long fkCulPostsId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+        this.fkCulUsuariosId = fkCulUsuariosId;
         this.fkCulPostsId = fkCulPostsId;
          this.dataCriacao = dataCriacao;
          this.data_mudanca = data_mudanca;
@@ -59,11 +60,11 @@ public class Curtida {
     }
 
     public long getFk_cul_usuarios_id() {
-        return fk_cul_usuarios_id;
+        return fkCulUsuariosId;
     }
 
-    public void setFk_cul_usuarios_id(long fk_cul_usuarios_id) {
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+    public void setFk_cul_usuarios_id(long fkCulUsuariosId) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
     }
 
     public long getFk_cul_posts_id() {
@@ -94,7 +95,7 @@ public class Curtida {
     public String toString() {
         return "Curtida{" +
                 "pk_id=" + pk_id +
-                ", fk_cul_usuarios_id=" + fk_cul_usuarios_id +
+                ", fkCulUsuariosId=" + fkCulUsuariosId +
                 ", fkCulPostsId=" + fkCulPostsId +
                  ", dataCriacao=" + dataCriacao +
                  ", data_mudanca=" + data_mudanca +
