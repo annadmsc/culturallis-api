@@ -1,1 +1,3 @@
+#POST localhost:1234/api/culturallis/curtirPost/82/ana.damasceno@gmail.com
 GET localhost:1234/api/culturallis/meusPosts/ana.damasceno@gmail.com
+#GET localhost:1234/api/culturallis/listarCurtidas
