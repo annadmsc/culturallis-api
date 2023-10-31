@@ -2,21 +2,18 @@ package com.example.demo.Posts.PostsController;
 
 import com.example.demo.Curtidas.CurtidaModel.Curtida;
 import com.example.demo.Curtidas.CurtidasRepository;
+import com.example.demo.Pagination.Pagination;
 import com.example.demo.Posts.PostModel.Post;
 import com.example.demo.Posts.PostModel.ReturnOwnPostsHome;
 import com.example.demo.Posts.PostModel.ReturnPostsHome;
 import com.example.demo.Posts.PostsRepository;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
-import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static java.util.Optional.ofNullable;
 
 @RestController
 @RequestMapping("/api/culturallis")
@@ -28,7 +25,8 @@ public class PostsController {
     private final CurtidasRepository curtidasRepository;
 
     @Autowired
-    public PostsController(PostsRepository postRepository, UsuariosRepository usuariosRepository, CurtidasRepository curtidasRepository) {
+    public PostsController(PostsRepository postRepository, UsuariosRepository usuariosRepository,
+            CurtidasRepository curtidasRepository) {
         this.postRepository = postRepository;
         this.usuariosRepository = usuariosRepository;
         this.curtidasRepository = curtidasRepository;
@@ -47,7 +45,8 @@ public class PostsController {
             userOptional.ifPresent(usuario -> {
                 Boolean curtiu;
 
-                Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(post.getPk_id(), usuariosRepository.findByEmail(usuario.getEmail()).getpkId());
+                Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
+                        post.getPk_id(), usuariosRepository.findByEmail(usuario.getEmail()).getpkId());
 
                 if (cr != null) {
                     if (cr.getData_desativacao() == null) {
@@ -69,16 +68,17 @@ public class PostsController {
                         post.getData_desativacao(),
                         usuario.getUrlFoto(),
                         usuario.getNomeUsuario(),
-                        Boolean.parseBoolean(String.valueOf(curtiu)
-                        ));
+                        Boolean.parseBoolean(String.valueOf(curtiu)));
 
-                if(post.getData_desativacao() == null){
+                if (post.getData_desativacao() == null) {
                     postsHome.add(returnPostsHome);
                 }
             });
         }
 
-        return postsHome;
+        Pagination pagination = new Pagination(postsHome);
+
+        return pagination.getCurrentPageData();
     }
 
     @GetMapping("/meusPosts/{email}")
@@ -86,15 +86,16 @@ public class PostsController {
 
         Usuarios user = usuariosRepository.findByEmail(String.valueOf(email));
 
-        List<Post> posts =  postRepository.findByFkCulUsuariosId(user.getpkId());
+        List<Post> posts = postRepository.findByFkCulUsuariosId(user.getpkId());
 
         List<ReturnOwnPostsHome> returnOwnPostsHomes = new ArrayList<>();
 
-        for (Post post : posts){
+        for (Post post : posts) {
 
             Boolean curtiu;
 
-            Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(post.getPk_id(), usuariosRepository.findByEmail(user.getEmail()).getpkId());
+            Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
+                    post.getPk_id(), usuariosRepository.findByEmail(user.getEmail()).getpkId());
 
             if (cr != null) {
                 if (cr.getData_desativacao() == null) {
@@ -117,9 +118,8 @@ public class PostsController {
                     user.getUrlFoto(),
                     user.getNomeUsuario(),
                     curtiu,
-                    curtiu
-            );
-            if(post.getData_desativacao() == null ){
+                    curtiu);
+            if (post.getData_desativacao() == null) {
                 returnOwnPostsHomes.add(returnPostsHome);
             }
         }
@@ -161,7 +161,7 @@ public class PostsController {
             pst.setFk_cul_usuarios_id(postAtt.getFk_cul_usuarios_id());
             pst.setData_criacao(postAtt.getData_criacao());
             pst.setData_mudanca(new Date());
-            pst.setData_desativacao(postAtt.getData_desativacao());
+            // pst.setData_desativacao(postAtt.getData_desativacao());
             postRepository.save(pst);
             return ResponseEntity.ok("Post atualizado!");
         }
