@@ -3,6 +3,8 @@ package com.example.demo.FavoritosCurso.FavoritosCursoController;
 import com.example.demo.FavoritosCurso.FavoritosCursoRepository;
 import com.example.demo.FavoritosCurso.FavoritosCursoModel.FavoritoCurso;
 
+import com.example.demo.Usuarios.UsuariosModel.Usuarios;
+import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,13 @@ import java.util.Optional;
 public class FavoritosCursoController {
 
     private final FavoritosCursoRepository favoritosCursoRepository;
+    private final UsuariosRepository usuariosRepository;
 
 
     @Autowired
-    public FavoritosCursoController(FavoritosCursoRepository favoritosCursoRepository) {
+    public FavoritosCursoController(FavoritosCursoRepository favoritosCursoRepository, UsuariosRepository usuariosRepository) {
         this.favoritosCursoRepository = favoritosCursoRepository;
+        this.usuariosRepository = usuariosRepository;
     }
 
 
@@ -40,6 +44,39 @@ public class FavoritosCursoController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @PostMapping("/salvarPost/{cursoId}/{email}")
+    public FavoritoCurso toggleCourseLike(@PathVariable long cursoId, @PathVariable String email){
+        Usuarios usuarios = usuariosRepository.findByEmail(email);
+        Optional<FavoritoCurso> curso = Optional.ofNullable(favoritosCursoRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(cursoId, usuarios.getpkId()));
+        FavoritoCurso fav = new FavoritoCurso();
+
+        curso.ifPresent(cr -> {
+            if(cr.getData_desativacao() == null){
+                fav.setPk_id(cr.getPk_id());
+                fav.setFk_cul_cursos_id(cr.getFk_cul_cursos_id());
+                fav.setFk_cul_usuarios_id(cr.getFk_cul_usuarios_id());
+                fav.setData_criacao(cr.getData_criacao());
+                fav.setData_mudanca(new Date());
+                fav.setData_desativacao(new Date());
+            }else{
+                fav.setFk_cul_cursos_id(cursoId);
+                fav.setFk_cul_usuarios_id(usuarios.getpkId());
+                fav.setData_criacao(new Date());
+            }
+        });
+
+        if(!curso.isPresent()){
+            fav.setFk_cul_cursos_id(cursoId);
+            fav.setFk_cul_usuarios_id(usuarios.getpkId());
+            fav.setData_criacao(new Date());
+        }
+
+        favoritosCursoRepository.save(fav);
+
+
+        return fav;
     }
 
     @PostMapping("/excluirCursoFavorito")
