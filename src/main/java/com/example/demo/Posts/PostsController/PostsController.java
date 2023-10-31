@@ -46,7 +46,7 @@ public class PostsController {
                 Boolean curtiu;
 
                 Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
-                        post.getPk_id(), usuariosRepository.findByEmail(usuario.getEmail()).getpkId());
+                        post.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
 
                 if (cr != null) {
                     if (cr.getData_desativacao() == null) {

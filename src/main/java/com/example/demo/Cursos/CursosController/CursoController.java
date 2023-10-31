@@ -1,13 +1,19 @@
 package com.example.demo.Cursos.CursosController;
 
 import com.example.demo.Cursos.CursoModel.Curso;
+import com.example.demo.Cursos.CursoModel.ReturnCoursesHome;
 import com.example.demo.Cursos.CursoRepository;
+import com.example.demo.CursosAdquiridos.CursosAdquiridosRepository;
+import com.example.demo.CursosSalvos.CursosSalvosModel.CursosSalvos;
+import com.example.demo.CursosSalvos.CursosSalvosRepository;
+import com.example.demo.Pagination.PaginationCourses;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,16 +24,66 @@ public class CursoController {
 
     private final CursoRepository cursoRepository;
     private final UsuariosRepository usuariosRepository;
+    private final CursosSalvosRepository cursosSalvosRepository;
+    private final CursosAdquiridosRepository cursosAdquiridosRepository;
 
     @Autowired
-    public CursoController(CursoRepository cursoRepository, UsuariosRepository usuariosRepository) {
+    public CursoController(CursoRepository cursoRepository, UsuariosRepository usuariosRepository, CursosSalvosRepository cursosSalvosRepository, CursosAdquiridosRepository cursosAdquiridosRepository) {
         this.cursoRepository = cursoRepository;
         this.usuariosRepository = usuariosRepository;
+        this.cursosSalvosRepository = cursosSalvosRepository;
+        this.cursosAdquiridosRepository = cursosAdquiridosRepository;
     }
 
-        @GetMapping("/listarCursos")
-    public List<Curso> getCursos() {
-        return cursoRepository.findAll();
+        @GetMapping("/listarCursos/{email}")
+    public List<ReturnCoursesHome> getCursos(@PathVariable String email) {
+            List<Curso> allCourses = cursoRepository.findAll();
+            List<ReturnCoursesHome> coursesHome = new ArrayList<>();
+
+            allCourses.sort((a, b) -> a.getData_criacao().after(b.getData_criacao()) ? -1 : 1);
+            for (Curso curso : allCourses) {
+                Optional<Usuarios> userOptional = usuariosRepository.findById(curso.getfkCulUsuariosId());
+
+                userOptional.ifPresent(usuario -> {
+                    Boolean salvou;
+
+                    CursosSalvos cr = cursosSalvosRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
+                            curso.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
+
+
+                    if (cr != null) {
+                        if (cr.getData_desativacao() == null) {
+                            salvou = true;
+                        } else {
+                            salvou = false;
+                        }
+                    } else {
+                        salvou = false;
+                    }
+
+                    ReturnCoursesHome returnCoursesHome = new ReturnCoursesHome(
+                            curso.getPk_id(),
+                            curso.getfkCulUsuariosId(),
+                            curso.getNome(),
+                            curso.getUrl_midia(),
+                            curso.getData_criacao(),
+                            curso.getData_mudanca(),
+                            curso.getData_desativacao(),
+                            usuario.getUrlFoto(),
+                            usuario.getNomeUsuario(),
+                            Boolean.parseBoolean(String.valueOf(salvou)),
+                            cursosAdquiridosRepository.findByFkCulCursosId(curso.getPk_id()).size()
+                            );
+
+                    if (curso.getData_desativacao() == null) {
+                        coursesHome.add(returnCoursesHome);
+                    }
+                });
+            }
+
+            PaginationCourses pagination = new PaginationCourses(coursesHome);
+
+            return pagination.getCurrentPageData();
     }
 
         @GetMapping("/meusCursos/{email}")
