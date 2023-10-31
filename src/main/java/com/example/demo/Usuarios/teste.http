@@ -1,3 +1,8 @@
-#POST localhost:1234/api/culturallis/curtirPost/82/ana.damasceno@gmail.com
-GET localhost:1234/api/culturallis/meusPosts/ana.damasceno@gmail.com
-#GET localhost:1234/api/culturallis/listarCurtidas
+
+GET localhost:1234/api/culturallis/listarPosts
+Content-Type: application/json
+
+{
+  "urlFoto": "blablabla.com"
+}
+
