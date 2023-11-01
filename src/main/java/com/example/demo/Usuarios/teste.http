@@ -1,4 +1,5 @@
-GET localhost:1234/api/culturallis/listarCursos/ana.damasceno@gmail.com
+#GET localhost:1234/api/culturallis/listarCursos/ana.damasceno@gmail.com
 #POST localhost:1234/api/culturallis/adquirirCurso/36/ana.damasceno@gmail.com
 #POST localhost:1234/api/culturallis/salvarCurso/36/ana.damasceno@gmail.com
 #GET localhost:1234/api/culturallis/listarCursosSalvos
+GET localhost:1234/api/culturallis/meusCursosf/ana.damasceno@gmail.com

@@ -11,7 +11,8 @@ public class CursosAdquiridosModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk_id;
 
-    private int fk_cul_Usuarios_id;
+    @Column(name = "fk_cul_usuarios_id")
+    private int fkCulUsuariosId;
 
     @Column(name = "fk_cul_cursos_id")
     private int fkCulCursosId;
@@ -24,17 +25,17 @@ public class CursosAdquiridosModel {
 
     public CursosAdquiridosModel(){}
 
-    public CursosAdquiridosModel(int fk_cul_Usuarios_id, int fkCulCursosId, Date data_criacao, Date data_mudanca, Date data_desativacao) {
-        this.fk_cul_Usuarios_id = fk_cul_Usuarios_id;
+    public CursosAdquiridosModel(int fkCulUsuariosId, int fkCulCursosId, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
         this.fkCulCursosId = fkCulCursosId;
         this.data_criacao = data_criacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
 
-    public CursosAdquiridosModel(Long pk_id, int fk_cul_Usuarios_id, int fkCulCursosId, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public CursosAdquiridosModel(Long pk_id, int fkCulUsuariosId, int fkCulCursosId, Date data_criacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.fk_cul_Usuarios_id = fk_cul_Usuarios_id;
+        this.fkCulUsuariosId = fkCulUsuariosId;
         this.fkCulCursosId = fkCulCursosId;
         this.data_criacao = data_criacao;
         this.data_mudanca = data_mudanca;
@@ -50,11 +51,11 @@ public class CursosAdquiridosModel {
     }
 
     public int getFk_cul_Usuarios_id() {
-        return fk_cul_Usuarios_id;
+        return fkCulUsuariosId;
     }
 
-    public void setFk_cul_Usuarios_id(int fk_cul_Usuarios_id) {
-        this.fk_cul_Usuarios_id = fk_cul_Usuarios_id;
+    public void setFk_cul_Usuarios_id(int fkCulUsuariosId) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
     }
 
     public int getFk_cul_cursos_id() {
@@ -93,7 +94,7 @@ public class CursosAdquiridosModel {
     public String toString() {
         return "CursosAdquiridosModel{" +
                 "pk_id=" + pk_id +
-                ", fk_cul_Usuarios_id=" + fk_cul_Usuarios_id +
+                ", fkCulUsuariosId=" + fkCulUsuariosId +
                 ", fkCulCursosId=" + fkCulCursosId +
                 ", data_criacao=" + data_criacao +
                 ", data_mudanca=" + data_mudanca +
