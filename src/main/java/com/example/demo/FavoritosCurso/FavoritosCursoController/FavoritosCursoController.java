@@ -20,15 +20,12 @@ public class FavoritosCursoController {
     private final FavoritosCursoRepository favoritosCursoRepository;
     private final UsuariosRepository usuariosRepository;
 
-
     @Autowired
-    public FavoritosCursoController(FavoritosCursoRepository favoritosCursoRepository, UsuariosRepository usuariosRepository) {
+    public FavoritosCursoController(FavoritosCursoRepository favoritosCursoRepository,
+            UsuariosRepository usuariosRepository) {
         this.favoritosCursoRepository = favoritosCursoRepository;
         this.usuariosRepository = usuariosRepository;
     }
-
-
-
 
     @GetMapping("/listarCursosFavoritos")
     public List<FavoritoCurso> getFavoriteCourse() {
@@ -44,39 +41,6 @@ public class FavoritosCursoController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
-    }
-
-    @PostMapping("/salvarPost/{cursoId}/{email}")
-    public FavoritoCurso toggleCourseLike(@PathVariable long cursoId, @PathVariable String email){
-        Usuarios usuarios = usuariosRepository.findByEmail(email);
-        Optional<FavoritoCurso> curso = Optional.ofNullable(favoritosCursoRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(cursoId, usuarios.getpkId()));
-        FavoritoCurso fav = new FavoritoCurso();
-
-        curso.ifPresent(cr -> {
-            if(cr.getData_desativacao() == null){
-                fav.setPk_id(cr.getPk_id());
-                fav.setFk_cul_cursos_id(cr.getFk_cul_cursos_id());
-                fav.setFk_cul_usuarios_id(cr.getFk_cul_usuarios_id());
-                fav.setData_criacao(cr.getData_criacao());
-                fav.setData_mudanca(new Date());
-                fav.setData_desativacao(new Date());
-            }else{
-                fav.setFk_cul_cursos_id(cursoId);
-                fav.setFk_cul_usuarios_id(usuarios.getpkId());
-                fav.setData_criacao(new Date());
-            }
-        });
-
-        if(!curso.isPresent()){
-            fav.setFk_cul_cursos_id(cursoId);
-            fav.setFk_cul_usuarios_id(usuarios.getpkId());
-            fav.setData_criacao(new Date());
-        }
-
-        favoritosCursoRepository.save(fav);
-
-
-        return fav;
     }
 
     @PostMapping("/excluirCursoFavorito")

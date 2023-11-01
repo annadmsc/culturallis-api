@@ -13,8 +13,8 @@ public class FavoritoCurso {
     private long pk_id;
 
 
-    @Column(name = "fk_cul_cursos_id")
-    private long fkCulCursosId;
+    @Column(name = "fk_cul_posts_id")
+    private long fkCulPostsId;
 
     @Column(name = "fk_cul_usuarios_id")
     private long fkCulUsuariosId;
@@ -30,7 +30,7 @@ public class FavoritoCurso {
 
     public FavoritoCurso(long pk_id, long fk_cul_cursos_id, long fk_cul_usuarios_id, Date data_criacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.fkCulCursosId = fk_cul_cursos_id;
+        this.fkCulPostsId = fk_cul_cursos_id;
         this.fkCulUsuariosId = fk_cul_usuarios_id;
         this.dataCriacao = data_criacao;
         this.data_mudanca = data_mudanca;
@@ -38,7 +38,7 @@ public class FavoritoCurso {
     }
 
     public FavoritoCurso(long fk_cul_cursos_id, long fk_cul_usuarios_id, Date data_criacao, Date data_mudanca, Date data_desativacao) {
-        this.fkCulCursosId = fk_cul_cursos_id;
+        this.fkCulPostsId = fk_cul_cursos_id;
         this.fkCulUsuariosId = fk_cul_usuarios_id;
         this.dataCriacao = data_criacao;
         this.data_mudanca = data_mudanca;
@@ -58,11 +58,11 @@ public class FavoritoCurso {
     }
 
     public long getFk_cul_cursos_id() {
-        return fkCulCursosId;
+        return fkCulPostsId;
     }
 
     public void setFk_cul_cursos_id(long fk_cul_cursos_id) {
-        this.fkCulCursosId = fk_cul_cursos_id;
+        this.fkCulPostsId = fk_cul_cursos_id;
     }
 
     public long getFk_cul_usuarios_id() {
