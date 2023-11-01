@@ -3,6 +3,8 @@ package com.example.demo.FavoritosCurso.FavoritosCursoController;
 import com.example.demo.FavoritosCurso.FavoritosCursoRepository;
 import com.example.demo.FavoritosCurso.FavoritosCursoModel.FavoritoCurso;
 
+import com.example.demo.Usuarios.UsuariosModel.Usuarios;
+import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +18,14 @@ import java.util.Optional;
 public class FavoritosCursoController {
 
     private final FavoritosCursoRepository favoritosCursoRepository;
-
+    private final UsuariosRepository usuariosRepository;
 
     @Autowired
-    public FavoritosCursoController(FavoritosCursoRepository favoritosCursoRepository) {
+    public FavoritosCursoController(FavoritosCursoRepository favoritosCursoRepository,
+            UsuariosRepository usuariosRepository) {
         this.favoritosCursoRepository = favoritosCursoRepository;
+        this.usuariosRepository = usuariosRepository;
     }
-
-
-
 
     @GetMapping("/listarCursosFavoritos")
     public List<FavoritoCurso> getFavoriteCourse() {

@@ -9,15 +9,18 @@ import java.util.Date;
 public class Curso {
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pk_id;
 
-    private long fk_cul_categorias_id;
+    @Column(name = "fk_cul_categorias_id")
+    private long fkCulCategoriasId;
 
     @Column(name = "fkCulUsuariosId")
     private long fkCulUsuariosId;
 
     private String nome;
+
+    private String url_midia;
 
     private String descricao;
 
@@ -27,23 +30,23 @@ public class Curso {
 
     private Date data_desativacao;
 
-    public Curso(long pk_id, long fk_cul_categorias_id, long fkCulUsuariosId, String nome, String descricao,
-            Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public Curso(long pk_id, long fkCulCategoriasId, long fkCulUsuariosId, String nome, String url_midia, String descricao, Date data_criacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.fk_cul_categorias_id = fk_cul_categorias_id;
+        this.fkCulCategoriasId = fkCulCategoriasId;
         this.fkCulUsuariosId = fkCulUsuariosId;
         this.nome = nome;
+        this.url_midia = url_midia;
         this.descricao = descricao;
         this.data_criacao = data_criacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
 
-    public Curso(long fk_cul_categorias_id, long fkCulUsuariosId, String nome, String descricao, Date data_criacao,
-            Date data_mudanca, Date data_desativacao) {
-        this.fk_cul_categorias_id = fk_cul_categorias_id;
+    public Curso(long fkCulCategoriasId, long fkCulUsuariosId, String nome, String url_midia, String descricao, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+        this.fkCulCategoriasId = fkCulCategoriasId;
         this.fkCulUsuariosId = fkCulUsuariosId;
         this.nome = nome;
+        this.url_midia = url_midia;
         this.descricao = descricao;
         this.data_criacao = data_criacao;
         this.data_mudanca = data_mudanca;
@@ -61,12 +64,36 @@ public class Curso {
         this.pk_id = pk_id;
     }
 
-    public long getFk_cul_categorias_id() {
-        return fk_cul_categorias_id;
+    public long getFkCulCategoriasId() {
+        return fkCulCategoriasId;
     }
 
-    public void setFk_cul_categorias_id(long fk_cul_categorias_id) {
-        this.fk_cul_categorias_id = fk_cul_categorias_id;
+    public void setFkCulCategoriasId(long fkCulCategoriasId) {
+        this.fkCulCategoriasId = fkCulCategoriasId;
+    }
+
+    public long getFkCulUsuariosId() {
+        return fkCulUsuariosId;
+    }
+
+    public void setFkCulUsuariosId(long fkCulUsuariosId) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
+    }
+
+    public String getUrl_midia() {
+        return url_midia;
+    }
+
+    public void setUrl_midia(String url_midia) {
+        this.url_midia = url_midia;
+    }
+
+    public long getFk_cul_categorias_id() {
+        return fkCulCategoriasId;
+    }
+
+    public void setFk_cul_categorias_id(long fkCulCategoriasId) {
+        this.fkCulCategoriasId = fkCulCategoriasId;
     }
 
     public long getfkCulUsuariosId() {
@@ -121,7 +148,7 @@ public class Curso {
     public String toString() {
         return "Curso{" +
                 "pk_id=" + pk_id +
-                ", fk_cul_categorias_id=" + fk_cul_categorias_id +
+                ", fkCulCategoriasId=" + fkCulCategoriasId +
                 ", fkCulUsuariosId=" + fkCulUsuariosId +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +

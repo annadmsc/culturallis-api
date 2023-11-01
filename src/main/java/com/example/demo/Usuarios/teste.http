@@ -1,8 +1,5 @@
 
-GET localhost:1234/api/culturallis/listarPosts
+POST localhost:1234/api/culturallis/favPost/88/ana.damasceno@gmail.com
 Content-Type: application/json
 
-{
-  "urlFoto": "blablabla.com"
-}
 
