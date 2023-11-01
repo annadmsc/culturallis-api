@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CurtidasRepository extends JpaRepository<Curtida, Long> {
 
-    Curtida findFirstByFkCulPostsIdOrderByDataCriacaoDesc(Long id);
 
         Curtida findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(Long idPosts, Long idUser);
 
