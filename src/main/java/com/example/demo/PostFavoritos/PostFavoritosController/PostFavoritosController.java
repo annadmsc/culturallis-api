@@ -145,6 +145,39 @@ public class PostFavoritosController {
         return postFavorito;
     }
 
+    @PostMapping("/favPost/{postId}/{email}")
+    public PostFavorito togglePostFav(@PathVariable long postId, @PathVariable String email){
+        Usuarios usuarios = usuariosRepository.findByEmail(email);
+        Optional<PostFavorito> postsHome = Optional.ofNullable(postFavoritosRepository.findFirstByPfkCulPostsIdAndPfkCulUsuariosIdOrderByDataCriacaoDesc(postId, usuarios.getpkId()));
+        PostFavorito postfav = new PostFavorito();
+
+        postsHome.ifPresent(cr -> {
+            if(cr.getData_desativacao() == null){
+                postfav.setPk_id(cr.getPk_id());
+                postfav.setPfk_cul_posts_id(cr.getPfk_cul_posts_id());
+                postfav.setPfk_cul_usuarios_id(cr.getPfk_cul_usuarios_id());
+                postfav.setData_criacao(cr.getData_criacao());
+                postfav.setData_mudanca(new Date());
+                postfav.setData_desativacao(new Date());
+            }else{
+                postfav.setPfk_cul_posts_id(postId);
+                postfav.setPfk_cul_usuarios_id(usuarios.getpkId());
+                postfav.setData_criacao(new Date());
+            }
+        });
+
+        if(!postsHome.isPresent()){
+            postfav.setPfk_cul_posts_id(postId);
+            postfav.setPfk_cul_usuarios_id(usuarios.getpkId());
+            postfav.setData_criacao(new Date());
+        }
+
+        postFavoritosRepository.save(postfav);
+
+
+        return postfav;
+    }
+
     @PostMapping("/excluirPostFavorito")
     public ResponseEntity<String> deleteFavoritePost(@RequestParam Long id) {
         Optional<PostFavorito> postToDel = postFavoritosRepository.findById(id);
