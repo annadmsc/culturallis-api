@@ -23,10 +23,12 @@ public class ReturnPostsHome {
 
     private Boolean curtido;
 
+    private Boolean salvo;
+
     public ReturnPostsHome() {
     }
 
-    public ReturnPostsHome(long pk_id, long fk_cul_usuarios_id, String descricao, String url_midia, Date data_criacao, Date data_mudanca, Date data_desativacao, String postsOwnerFoto, String postsOwnerName, Boolean curtido) {
+    public ReturnPostsHome(long pk_id, long fk_cul_usuarios_id, String descricao, String url_midia, Date data_criacao, Date data_mudanca, Date data_desativacao, String postsOwnerFoto, String postsOwnerName, Boolean curtido, Boolean salvo) {
         this.pk_id = pk_id;
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
         this.descricao = descricao;
@@ -37,6 +39,7 @@ public class ReturnPostsHome {
         this.postsOwnerFoto = postsOwnerFoto;
         this.postsOwnerName = postsOwnerName;
         this.curtido = curtido;
+        this.salvo = salvo;
     }
 
     public long getPk_id() {
@@ -119,6 +122,14 @@ public class ReturnPostsHome {
         this.curtido = curtido;
     }
 
+    public Boolean getSalvo() {
+        return salvo;
+    }
+
+    public void setSalvo(Boolean salvo) {
+        this.salvo = salvo;
+    }
+
     @Override
     public String toString() {
         return "ReturnPostsHome{" +
@@ -132,6 +143,7 @@ public class ReturnPostsHome {
                 ", postsOwnerFoto='" + postsOwnerFoto + '\'' +
                 ", postsOwnerName='" + postsOwnerName + '\'' +
                 ", curtido=" + curtido +
+                ", salvo=" + salvo +
                 '}';
     }
 }

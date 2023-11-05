@@ -53,9 +53,7 @@ public class ConteudosController {
             Conteudos cont = content.get();
             cont.setFk_tb_curso_id(conteudosAtt.getFk_tb_curso_id());
             cont.setNome(conteudosAtt.getNome());
-            cont.setDescricao(conteudosAtt.getDescricao());
             cont.setUrl_material(conteudosAtt.getUrl_material());
-            cont.setUrl_video(conteudosAtt.getUrl_video());
             cont.setData_criacao(conteudosAtt.getData_criacao());
             cont.setData_mudanca(new Date());
             cont.setData_desativacao(conteudosAtt.getData_desativacao());

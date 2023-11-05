@@ -3,6 +3,8 @@ package com.example.demo.Posts.PostsController;
 import com.example.demo.Curtidas.CurtidaModel.Curtida;
 import com.example.demo.Curtidas.CurtidasRepository;
 import com.example.demo.Pagination.Pagination;
+import com.example.demo.PostFavoritos.PostFavoritosModel.PostFavorito;
+import com.example.demo.PostFavoritos.PostFavoritosRepository;
 import com.example.demo.Posts.PostModel.Post;
 import com.example.demo.Posts.PostModel.ReturnOwnPostsHome;
 import com.example.demo.Posts.PostModel.ReturnPostsHome;
@@ -21,14 +23,15 @@ public class PostsController {
 
     private final PostsRepository postRepository;
     private final UsuariosRepository usuariosRepository;
-
+    private final PostFavoritosRepository postFavoritosRepository;
     private final CurtidasRepository curtidasRepository;
 
     @Autowired
     public PostsController(PostsRepository postRepository, UsuariosRepository usuariosRepository,
-            CurtidasRepository curtidasRepository) {
+                           PostFavoritosRepository postFavoritosRepository, CurtidasRepository curtidasRepository) {
         this.postRepository = postRepository;
         this.usuariosRepository = usuariosRepository;
+        this.postFavoritosRepository = postFavoritosRepository;
         this.curtidasRepository = curtidasRepository;
     }
 
@@ -44,9 +47,22 @@ public class PostsController {
 
             userOptional.ifPresent(usuario -> {
                 Boolean curtiu;
+                Boolean salvou;
+
+                PostFavorito pf = postFavoritosRepository.findFirstByPfkCulPostsIdAndPfkCulUsuariosIdOrderByDataCriacaoDesc(post.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
 
                 Curtida cr = curtidasRepository.findFirstByFkCulPostsIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
                         post.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
+
+                if(pf != null){
+                    if(pf.getData_desativacao() == null){
+                        salvou = true;
+                    } else{
+                        salvou = false;
+                    }
+                }else{
+                    salvou = false;
+                }
 
                 if (cr != null) {
                     if (cr.getData_desativacao() == null) {
@@ -68,7 +84,8 @@ public class PostsController {
                         post.getData_desativacao(),
                         usuario.getUrlFoto(),
                         usuario.getNomeUsuario(),
-                        Boolean.parseBoolean(String.valueOf(curtiu)));
+                        curtiu,
+                        salvou);
 
                 if (post.getData_desativacao() == null) {
                     postsHome.add(returnPostsHome);

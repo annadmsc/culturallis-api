@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface PostsRepository extends JpaRepository<Post, Long> {
     List<Post> findByFkCulUsuariosId(Long fk_cul_usuarios_id);
+
 }
