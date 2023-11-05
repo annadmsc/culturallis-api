@@ -1,5 +1,10 @@
 package com.example.demo.Cursos.CursosController;
 
+import com.example.demo.Categorias.CategoriasModel.Categorias;
+import com.example.demo.Categorias.CategoriasRepository;
+import com.example.demo.Conteudos.ConteudosModel.Conteudos;
+import com.example.demo.Conteudos.ConteudosRepository;
+import com.example.demo.Cursos.CursoModel.CourseInfo;
 import com.example.demo.Cursos.CursoModel.Curso;
 import com.example.demo.Cursos.CursoModel.ReturnCoursesHome;
 import com.example.demo.Cursos.CursoRepository;
@@ -7,10 +12,7 @@ import com.example.demo.CursosAdquiridos.CursosAdquiridosModel.CursosAdquiridosM
 import com.example.demo.CursosAdquiridos.CursosAdquiridosRepository;
 import com.example.demo.CursosSalvos.CursosSalvosModel.CursosSalvos;
 import com.example.demo.CursosSalvos.CursosSalvosRepository;
-import com.example.demo.Curtidas.CurtidaModel.Curtida;
 import com.example.demo.Pagination.PaginationCourses;
-import com.example.demo.Posts.PostModel.Post;
-import com.example.demo.Posts.PostModel.ReturnOwnPostsHome;
 import com.example.demo.Usuarios.UsuariosModel.Usuarios;
 import com.example.demo.Usuarios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +32,51 @@ public class CursoController {
     private final UsuariosRepository usuariosRepository;
     private final CursosSalvosRepository cursosSalvosRepository;
     private final CursosAdquiridosRepository cursosAdquiridosRepository;
+    private final CategoriasRepository categoriasRepository;
+    private final ConteudosRepository conteudosRepository;
 
     @Autowired
-    public CursoController(CursoRepository cursoRepository, UsuariosRepository usuariosRepository, CursosSalvosRepository cursosSalvosRepository, CursosAdquiridosRepository cursosAdquiridosRepository) {
+    public CursoController(CursoRepository cursoRepository, UsuariosRepository usuariosRepository, CursosSalvosRepository cursosSalvosRepository, CursosAdquiridosRepository cursosAdquiridosRepository, CategoriasRepository categoriasRepository, ConteudosRepository conteudosRepository) {
         this.cursoRepository = cursoRepository;
         this.usuariosRepository = usuariosRepository;
         this.cursosSalvosRepository = cursosSalvosRepository;
         this.cursosAdquiridosRepository = cursosAdquiridosRepository;
+        this.categoriasRepository = categoriasRepository;
+        this.conteudosRepository = conteudosRepository;
     }
 
-        @GetMapping("/listarCursos/{email}")
+    @GetMapping("cursoInfo/{courseId}")
+    public CourseInfo getCourseInfo(@PathVariable Long courseId) {
+        Optional<Curso> curso = cursoRepository.findById(courseId);
+
+        if (curso.isPresent()) {
+            Curso cr = curso.get();
+            List<Conteudos> conteudos = conteudosRepository.findAllByFkCulCursosId(cr.getPk_id());
+            Optional<Categorias> categorias = categoriasRepository.findById(cr.getFkCulCategoriasId());
+
+            if (categorias.isPresent()) {
+                Categorias ct = categorias.get();
+                CourseInfo courseInfo = new CourseInfo(
+                        cr.getPk_id(),
+                        cr.getfkCulUsuariosId(),
+                        cr.getFkCulCategoriasId(),
+                        cr.getNome(),
+                        ct.getNome(),
+                        cr.getDescricao(),
+                        cr.getPreco(),
+                        cr.getData_criacao(),
+                        cr.getData_mudanca(),
+                        cr.getData_desativacao(),
+                        conteudos
+                );
+                return courseInfo;
+            }
+        }
+        return null;
+    }
+
+
+    @GetMapping("/listarCursos/{email}")
     public List<ReturnCoursesHome> getCursos(@PathVariable String email) {
             List<Curso> allCourses = cursoRepository.findAll();
             List<ReturnCoursesHome> coursesHome = new ArrayList<>();
@@ -128,7 +165,7 @@ public class CursoController {
                 usuarios.ifPresent(usu -> {
                     ReturnCoursesHome returnCoursesHome = new ReturnCoursesHome(
                             cursinho.getPk_id(),
-                            cursinho.getFkCulUsuariosId(),
+                            cursinho.getfkCulUsuariosId(),
                             cursinho.getNome(),
                             cursinho.getUrl_midia(),
                             cursinho.getData_criacao(),
@@ -184,7 +221,7 @@ public class CursoController {
 
                 ReturnCoursesHome returnCoursesHome = new ReturnCoursesHome(
                         curso.getPk_id(),
-                        curso.getFkCulUsuariosId(),
+                        curso.getfkCulUsuariosId(),
                         curso.getNome(),
                         curso.getUrl_midia(),
                         curso.getData_criacao(),

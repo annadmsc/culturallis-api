@@ -11,15 +11,14 @@ public class PostFavorito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pk_id;
 
-    @Column(name = "fk_cul_usuarios_id")
-    private long fkCulUsuariosId;
-
     @Column(name = "fk_cul_posts_id")
-    private long fkCulPostsId;
+    private long pfkCulPostsId;
 
-    @Column(name="data_criacao")
+    @Column(name = "fk_cul_usuarios_id")
+    private long pfkCulUsuariosId;
+
+    @Column(name = "data_criacao")
     private Date dataCriacao;
-
 
     private Date data_mudanca;
 
@@ -28,21 +27,21 @@ public class PostFavorito {
     public PostFavorito() {
     }
 
-    public PostFavorito(long pk_id, long pfk_cul_posts_id, long pfk_cul_usuarios_id, Date data_criacao,
+    public PostFavorito(long pk_id, long pfkCulPostsId, long pfkCulUsuariosId, Date dataCriacao,
             Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.fkCulPostsId = pfk_cul_posts_id;
-        this.fkCulUsuariosId = pfk_cul_usuarios_id;
-        this.dataCriacao = data_criacao;
+        this.pfkCulPostsId = pfkCulPostsId;
+        this.pfkCulUsuariosId = pfkCulUsuariosId;
+        this.dataCriacao = dataCriacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
 
-    public PostFavorito(long pfk_cul_posts_id, long pfk_cul_usuarios_id, Date data_criacao, Date data_mudanca,
+    public PostFavorito(long pfkCulPostsId, long pfkCulUsuariosId, Date dataCriacao, Date data_mudanca,
             Date data_desativacao) {
-        this.fkCulPostsId = pfk_cul_posts_id;
-        this.fkCulUsuariosId = pfk_cul_usuarios_id;
-        this.dataCriacao = data_criacao;
+        this.pfkCulPostsId = pfkCulPostsId;
+        this.pfkCulUsuariosId = pfkCulUsuariosId;
+        this.dataCriacao = dataCriacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
@@ -56,27 +55,27 @@ public class PostFavorito {
     }
 
     public long getPfk_cul_posts_id() {
-        return fkCulPostsId;
+        return pfkCulPostsId;
     }
 
-    public void setPfk_cul_posts_id(long pfk_cul_posts_id) {
-        this.fkCulPostsId = pfk_cul_posts_id;
+    public void setPfk_cul_posts_id(long pfkCulPostsId) {
+        this.pfkCulPostsId = pfkCulPostsId;
     }
 
     public long getPfk_cul_usuarios_id() {
-        return fkCulUsuariosId;
+        return pfkCulUsuariosId;
     }
 
-    public void setPfk_cul_usuarios_id(long pfk_cul_usuarios_id) {
-        this.fkCulUsuariosId = pfk_cul_usuarios_id;
+    public void setPfk_cul_usuarios_id(long pfkCulUsuariosId) {
+        this.pfkCulUsuariosId = pfkCulUsuariosId;
     }
 
     public Date getData_criacao() {
         return dataCriacao;
     }
 
-    public void setData_criacao(Date data_criacao) {
-        this.dataCriacao = data_criacao;
+    public void setData_criacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public Date getData_mudanca() {
@@ -99,9 +98,9 @@ public class PostFavorito {
     public String toString() {
         return "PostFavorito{" +
                 "pk_id=" + pk_id +
-                ", pfk_cul_posts_id=" + fkCulPostsId +
-                ", pfk_cul_usuarios_id=" + fkCulUsuariosId +
-                ", data_criacao=" + dataCriacao +
+                ", pfkCulPostsId=" + pfkCulPostsId +
+                ", pfkCulUsuariosId=" + pfkCulUsuariosId +
+                ", dataCriacao=" + dataCriacao +
                 ", data_mudanca=" + data_mudanca +
                 ", data_desativacao=" + data_desativacao +
                 '}';
