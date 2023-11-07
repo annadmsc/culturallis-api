@@ -4,6 +4,7 @@ import com.example.demo.Categorias.CategoriasModel.Categorias;
 import com.example.demo.Categorias.CategoriasRepository;
 import com.example.demo.Conteudos.ConteudosModel.Conteudos;
 import com.example.demo.Conteudos.ConteudosRepository;
+import com.example.demo.Cursos.CursoModel.CourseCreation;
 import com.example.demo.Cursos.CursoModel.CourseInfo;
 import com.example.demo.Cursos.CursoModel.Curso;
 import com.example.demo.Cursos.CursoModel.ReturnCoursesHome;
@@ -88,8 +89,12 @@ public class CursoController {
                 userOptional.ifPresent(usuario -> {
                     Boolean salvou;
 
+                    Boolean adquiriu;
+
                     CursosSalvos cr = cursosSalvosRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
                             curso.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
+
+                    CursosAdquiridosModel ca = cursosAdquiridosRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(curso.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
 
 
                     if (cr != null) {
@@ -100,6 +105,16 @@ public class CursoController {
                         }
                     } else {
                         salvou = false;
+                    }
+
+                    if (ca != null) {
+                        if (ca.getData_desativacao() == null) {
+                            adquiriu = true;
+                        } else {
+                            adquiriu = false;
+                        }
+                    } else {
+                        adquiriu = false;
                     }
 
                     ReturnCoursesHome returnCoursesHome = new ReturnCoursesHome(
@@ -113,7 +128,8 @@ public class CursoController {
                             usuario.getUrlFoto(),
                             usuario.getNomeUsuario(),
                             Boolean.parseBoolean(String.valueOf(salvou)),
-                            cursosAdquiridosRepository.findByFkCulCursosId(curso.getPk_id()).size()
+                            (cursosAdquiridosRepository.findByFkCulCursosId(curso.getPk_id()).size()),
+                            adquiriu
                             );
 
                     if (curso.getData_desativacao() == null) {
@@ -145,7 +161,6 @@ public class CursoController {
             cs.ifPresent(cursinho -> {
                 Boolean curtiu;
 
-
                 CursosSalvos cr = cursosSalvosRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
                         cursinho.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
 
@@ -174,7 +189,9 @@ public class CursoController {
                             usu.getUrlFoto(),
                             usu.getNomeUsuario(),
                             curtiu,
-                            cursosAdquiridosRepository.findByFkCulCursosId(cursinho.getPk_id()).size());
+                            cursosAdquiridosRepository.findByFkCulCursosId(cursinho.getPk_id()).size(),
+                            true
+                    );
 
                     if (curso.getData_desativacao() == null) {
                         returnOwnCoursesHomes.add(returnCoursesHome);
@@ -205,8 +222,12 @@ public class CursoController {
 
                 Boolean curtiu;
 
+                Boolean adquiriu;
+
                 CursosSalvos cr = cursosSalvosRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(
                         curso.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
+
+                CursosAdquiridosModel ca = cursosAdquiridosRepository.findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(curso.getPk_id(), usuariosRepository.findByEmail(email).getpkId());
 
 
                 if (cr != null) {
@@ -217,6 +238,16 @@ public class CursoController {
                     }
                 } else {
                     curtiu = false;
+                }
+
+                if (ca != null) {
+                    if (ca.getData_desativacao() == null) {
+                        adquiriu = true;
+                    } else {
+                        adquiriu = false;
+                    }
+                } else {
+                    adquiriu = false;
                 }
 
                 ReturnCoursesHome returnCoursesHome = new ReturnCoursesHome(
@@ -230,7 +261,8 @@ public class CursoController {
                         user.getUrlFoto(),
                         user.getNomeUsuario(),
                         curtiu,
-                        cursosAdquiridosRepository.findByFkCulCursosId(curso.getPk_id()).size());
+                        cursosAdquiridosRepository.findByFkCulCursosId(curso.getPk_id()).size(),
+                        adquiriu);
                 if (curso.getData_desativacao() == null) {
                     returnOwnCoursesHomes.add(returnCoursesHome);
                 }
@@ -242,10 +274,18 @@ public class CursoController {
     }
 
     @PostMapping("/inserirCurso")
-    public ResponseEntity<String> inserirCurso(@RequestBody Curso curso) {
-        curso.setData_criacao(new Date());
+    public ResponseEntity<String> inserirCurso(@RequestBody CourseCreation courseInfo) {
+        courseInfo.setData_criaco(new Date());
         try {
-            cursoRepository.save(curso);
+            Long categoriasId =  categoriasRepository.save(new Categorias(courseInfo.getNome(), new Date(), null, null)).getPk_id();
+
+            Curso curso = new Curso(categoriasId, Long.parseLong(courseInfo.getFk_cul_usuarios_id()), courseInfo.getNome(), courseInfo.getPreco(), courseInfo.getFotoPost(), courseInfo.getDescricao(), courseInfo.getData_criaco(), courseInfo.getData_mudanca(), courseInfo.getData_desastivacao());
+            Long courseId = cursoRepository.save(curso).getPk_id();
+
+            for(Conteudos conteudos : courseInfo.getConteudosList()){
+                conteudosRepository.save(new Conteudos(courseId, conteudos.getNome(), conteudos.getUrl_material(), new Date(), null, null));
+            }
+
             return ResponseEntity.ok("Curso Inserido");
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

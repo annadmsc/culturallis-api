@@ -13,4 +13,6 @@ public interface CursosAdquiridosRepository extends JpaRepository<CursosAdquirid
 
     List<CursosAdquiridosModel> findAllByFkCulUsuariosId(Long fk_cul_usuarios_id);
 
+    CursosAdquiridosModel findFirstByFkCulCursosIdAndFkCulUsuariosIdOrderByDataCriacaoDesc(Long fkCulCursosId, Long fkCulUsuariosId);
+
 }

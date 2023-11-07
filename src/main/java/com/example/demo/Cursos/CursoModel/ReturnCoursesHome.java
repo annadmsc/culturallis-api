@@ -25,10 +25,12 @@ public class ReturnCoursesHome {
 
     private Integer numCursados;
 
+    private Boolean adquiriu;
+
     public ReturnCoursesHome() {
     }
 
-    public ReturnCoursesHome(long pk_id, long fk_cul_usuarios_id, String titulo, String url_midia, Date data_criacao, Date data_mudanca, Date data_desativacao, String postsOwnerFoto, String postsOwnerName, Boolean curtido, Integer numCursados) {
+    public ReturnCoursesHome(long pk_id, long fk_cul_usuarios_id, String titulo, String url_midia, Date data_criacao, Date data_mudanca, Date data_desativacao, String postsOwnerFoto, String postsOwnerName, Boolean curtido, Integer numCursados, Boolean adquiriu) {
         this.pk_id = pk_id;
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
         this.titulo = titulo;
@@ -40,6 +42,7 @@ public class ReturnCoursesHome {
         this.postsOwnerName = postsOwnerName;
         this.curtido = curtido;
         this.numCursados = numCursados;
+        this.adquiriu = adquiriu;
     }
 
     public long getPk_id() {
@@ -130,6 +133,14 @@ public class ReturnCoursesHome {
         this.numCursados = numCursados;
     }
 
+    public Boolean getAdquiriu() {
+        return adquiriu;
+    }
+
+    public void setAdquiriu(Boolean adquiriu) {
+        this.adquiriu = adquiriu;
+    }
+
     @Override
     public String toString() {
         return "ReturnCoursesHome{" +
@@ -144,6 +155,7 @@ public class ReturnCoursesHome {
                 ", postsOwnerName='" + postsOwnerName + '\'' +
                 ", curtido=" + curtido +
                 ", numCursados=" + numCursados +
+                ", adquiriu=" + adquiriu +
                 '}';
     }
 }
