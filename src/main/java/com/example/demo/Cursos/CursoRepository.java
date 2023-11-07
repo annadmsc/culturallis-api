@@ -11,6 +11,4 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
 
     List<Curso> findAllByFkCulUsuariosId(Long fk_cul_usuarios_id);
 
-    Curso findTopByOrderByPk_idDesc();
-
 }
