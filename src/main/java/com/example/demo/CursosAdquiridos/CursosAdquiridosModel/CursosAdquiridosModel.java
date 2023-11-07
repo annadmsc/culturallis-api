@@ -17,7 +17,8 @@ public class CursosAdquiridosModel {
     @Column(name = "fk_cul_cursos_id")
     private int fkCulCursosId;
 
-    private Date data_criacao;
+    @Column(name = "data_criacao")
+    private Date dataCriacao;
 
     private Date data_mudanca;
 
@@ -25,19 +26,19 @@ public class CursosAdquiridosModel {
 
     public CursosAdquiridosModel(){}
 
-    public CursosAdquiridosModel(int fkCulUsuariosId, int fkCulCursosId, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public CursosAdquiridosModel(int fkCulUsuariosId, int fkCulCursosId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
         this.fkCulUsuariosId = fkCulUsuariosId;
         this.fkCulCursosId = fkCulCursosId;
-        this.data_criacao = data_criacao;
+        this.dataCriacao = dataCriacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
 
-    public CursosAdquiridosModel(Long pk_id, int fkCulUsuariosId, int fkCulCursosId, Date data_criacao, Date data_mudanca, Date data_desativacao) {
+    public CursosAdquiridosModel(Long pk_id, int fkCulUsuariosId, int fkCulCursosId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
         this.fkCulUsuariosId = fkCulUsuariosId;
         this.fkCulCursosId = fkCulCursosId;
-        this.data_criacao = data_criacao;
+        this.dataCriacao = dataCriacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
@@ -67,11 +68,11 @@ public class CursosAdquiridosModel {
     }
 
     public Date getData_criacao() {
-        return data_criacao;
+        return dataCriacao;
     }
 
-    public void setData_criacao(Date data_criacao) {
-        this.data_criacao = data_criacao;
+    public void setData_criacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public Date getData_mudanca() {
@@ -96,7 +97,7 @@ public class CursosAdquiridosModel {
                 "pk_id=" + pk_id +
                 ", fkCulUsuariosId=" + fkCulUsuariosId +
                 ", fkCulCursosId=" + fkCulCursosId +
-                ", data_criacao=" + data_criacao +
+                ", dataCriacao=" + dataCriacao +
                 ", data_mudanca=" + data_mudanca +
                 ", data_desativacao=" + data_desativacao +
                 '}';
