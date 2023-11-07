@@ -1,13 +1,13 @@
-package com.example.demo.Posts.PostModel;
+package com.example.demo.Cursos.CursoModel;
 
 import java.util.Date;
 
-public class ReturnPostsHome {
+public class ReturnCoursesHome {
     private long pk_id;
 
     private long fk_cul_usuarios_id;
 
-    private String descricao;
+    private String titulo;
 
     private String url_midia;
 
@@ -23,15 +23,17 @@ public class ReturnPostsHome {
 
     private Boolean curtido;
 
-    private Boolean salvo;
+    private Integer numCursados;
 
-    public ReturnPostsHome() {
+    private Boolean adquiriu;
+
+    public ReturnCoursesHome() {
     }
 
-    public ReturnPostsHome(long pk_id, long fk_cul_usuarios_id, String descricao, String url_midia, Date data_criacao, Date data_mudanca, Date data_desativacao, String postsOwnerFoto, String postsOwnerName, Boolean curtido, Boolean salvo) {
+    public ReturnCoursesHome(long pk_id, long fk_cul_usuarios_id, String titulo, String url_midia, Date data_criacao, Date data_mudanca, Date data_desativacao, String postsOwnerFoto, String postsOwnerName, Boolean curtido, Integer numCursados, Boolean adquiriu) {
         this.pk_id = pk_id;
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
-        this.descricao = descricao;
+        this.titulo = titulo;
         this.url_midia = url_midia;
         this.data_criacao = data_criacao;
         this.data_mudanca = data_mudanca;
@@ -39,7 +41,8 @@ public class ReturnPostsHome {
         this.postsOwnerFoto = postsOwnerFoto;
         this.postsOwnerName = postsOwnerName;
         this.curtido = curtido;
-        this.salvo = salvo;
+        this.numCursados = numCursados;
+        this.adquiriu = adquiriu;
     }
 
     public long getPk_id() {
@@ -58,12 +61,12 @@ public class ReturnPostsHome {
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getUrl_midia() {
@@ -122,20 +125,28 @@ public class ReturnPostsHome {
         this.curtido = curtido;
     }
 
-    public Boolean getSalvo() {
-        return salvo;
+    public Integer getNumCursados() {
+        return numCursados;
     }
 
-    public void setSalvo(Boolean salvo) {
-        this.salvo = salvo;
+    public void setNumCursados(Integer numCursados) {
+        this.numCursados = numCursados;
+    }
+
+    public Boolean getAdquiriu() {
+        return adquiriu;
+    }
+
+    public void setAdquiriu(Boolean adquiriu) {
+        this.adquiriu = adquiriu;
     }
 
     @Override
     public String toString() {
-        return "ReturnPostsHome{" +
+        return "ReturnCoursesHome{" +
                 "pk_id=" + pk_id +
                 ", fk_cul_usuarios_id=" + fk_cul_usuarios_id +
-                ", descricao='" + descricao + '\'' +
+                ", titulo='" + titulo + '\'' +
                 ", url_midia='" + url_midia + '\'' +
                 ", data_criacao=" + data_criacao +
                 ", data_mudanca=" + data_mudanca +
@@ -143,7 +154,8 @@ public class ReturnPostsHome {
                 ", postsOwnerFoto='" + postsOwnerFoto + '\'' +
                 ", postsOwnerName='" + postsOwnerName + '\'' +
                 ", curtido=" + curtido +
-                ", salvo=" + salvo +
+                ", numCursados=" + numCursados +
+                ", adquiriu=" + adquiriu +
                 '}';
     }
 }

@@ -1,21 +1,21 @@
-package com.example.demo.PostFavoritos.PostFavoritosModel;
+package com.example.demo.CursosAdquiridos.CursosAdquiridosModel;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "cul_posts_favoritos")
-public class PostFavorito {
+@Table(name = "cul_cursos_adquiridos")
+public class CursosAdquiridosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long pk_id;
-
-    @Column(name = "fk_cul_posts_id")
-    private long pfkCulPostsId;
+    private Long pk_id;
 
     @Column(name = "fk_cul_usuarios_id")
-    private long pfkCulUsuariosId;
+    private int fkCulUsuariosId;
+
+    @Column(name = "fk_cul_cursos_id")
+    private int fkCulCursosId;
 
     @Column(name = "data_criacao")
     private Date dataCriacao;
@@ -24,50 +24,47 @@ public class PostFavorito {
 
     private Date data_desativacao;
 
-    public PostFavorito() {
+    public CursosAdquiridosModel(){}
+
+    public CursosAdquiridosModel(int fkCulUsuariosId, int fkCulCursosId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
+        this.fkCulCursosId = fkCulCursosId;
+        this.dataCriacao = dataCriacao;
+        this.data_mudanca = data_mudanca;
+        this.data_desativacao = data_desativacao;
     }
 
-    public PostFavorito(long pk_id, long pfkCulPostsId, long pfkCulUsuariosId, Date dataCriacao,
-            Date data_mudanca, Date data_desativacao) {
+    public CursosAdquiridosModel(Long pk_id, int fkCulUsuariosId, int fkCulCursosId, Date dataCriacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.pfkCulPostsId = pfkCulPostsId;
-        this.pfkCulUsuariosId = pfkCulUsuariosId;
+        this.fkCulUsuariosId = fkCulUsuariosId;
+        this.fkCulCursosId = fkCulCursosId;
         this.dataCriacao = dataCriacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
 
-    public PostFavorito(long pfkCulPostsId, long pfkCulUsuariosId, Date dataCriacao, Date data_mudanca,
-            Date data_desativacao) {
-        this.pfkCulPostsId = pfkCulPostsId;
-        this.pfkCulUsuariosId = pfkCulUsuariosId;
-        this.dataCriacao = dataCriacao;
-        this.data_mudanca = data_mudanca;
-        this.data_desativacao = data_desativacao;
-    }
-
-    public long getPk_id() {
+    public Long getPk_id() {
         return pk_id;
     }
 
-    public void setPk_id(long pk_id) {
+    public void setPk_id(Long pk_id) {
         this.pk_id = pk_id;
     }
 
-    public long getPfk_cul_posts_id() {
-        return pfkCulPostsId;
+    public int getFk_cul_Usuarios_id() {
+        return fkCulUsuariosId;
     }
 
-    public void setPfk_cul_posts_id(long pfkCulPostsId) {
-        this.pfkCulPostsId = pfkCulPostsId;
+    public void setFk_cul_Usuarios_id(int fkCulUsuariosId) {
+        this.fkCulUsuariosId = fkCulUsuariosId;
     }
 
-    public long getPfk_cul_usuarios_id() {
-        return pfkCulUsuariosId;
+    public int getFk_cul_cursos_id() {
+        return fkCulCursosId;
     }
 
-    public void setPfk_cul_usuarios_id(long pfkCulUsuariosId) {
-        this.pfkCulUsuariosId = pfkCulUsuariosId;
+    public void setFk_cul_cursos_id(int fkCulCursosId) {
+        this.fkCulCursosId = fkCulCursosId;
     }
 
     public Date getData_criacao() {
@@ -96,10 +93,10 @@ public class PostFavorito {
 
     @Override
     public String toString() {
-        return "PostFavorito{" +
+        return "CursosAdquiridosModel{" +
                 "pk_id=" + pk_id +
-                ", pfkCulPostsId=" + pfkCulPostsId +
-                ", pfkCulUsuariosId=" + pfkCulUsuariosId +
+                ", fkCulUsuariosId=" + fkCulUsuariosId +
+                ", fkCulCursosId=" + fkCulCursosId +
                 ", dataCriacao=" + dataCriacao +
                 ", data_mudanca=" + data_mudanca +
                 ", data_desativacao=" + data_desativacao +

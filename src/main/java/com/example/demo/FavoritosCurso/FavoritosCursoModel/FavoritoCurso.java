@@ -12,11 +12,15 @@ public class FavoritoCurso {
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pk_id;
 
-    private long fk_cul_cursos_id;
 
-    private long fk_cul_usuarios_id;
+    @Column(name = "fk_cul_posts_id")
+    private long fkCulPostsId;
 
-    private Date data_criacao;
+    @Column(name = "fk_cul_usuarios_id")
+    private long fkCulUsuariosId;
+
+    @Column(name="data_criacao")
+    private Date dataCriacao;
 
 
     private Date data_mudanca;
@@ -26,17 +30,17 @@ public class FavoritoCurso {
 
     public FavoritoCurso(long pk_id, long fk_cul_cursos_id, long fk_cul_usuarios_id, Date data_criacao, Date data_mudanca, Date data_desativacao) {
         this.pk_id = pk_id;
-        this.fk_cul_cursos_id = fk_cul_cursos_id;
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
-        this.data_criacao = data_criacao;
+        this.fkCulPostsId = fk_cul_cursos_id;
+        this.fkCulUsuariosId = fk_cul_usuarios_id;
+        this.dataCriacao = data_criacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
 
     public FavoritoCurso(long fk_cul_cursos_id, long fk_cul_usuarios_id, Date data_criacao, Date data_mudanca, Date data_desativacao) {
-        this.fk_cul_cursos_id = fk_cul_cursos_id;
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
-        this.data_criacao = data_criacao;
+        this.fkCulPostsId = fk_cul_cursos_id;
+        this.fkCulUsuariosId = fk_cul_usuarios_id;
+        this.dataCriacao = data_criacao;
         this.data_mudanca = data_mudanca;
         this.data_desativacao = data_desativacao;
     }
@@ -54,27 +58,27 @@ public class FavoritoCurso {
     }
 
     public long getFk_cul_cursos_id() {
-        return fk_cul_cursos_id;
+        return fkCulPostsId;
     }
 
     public void setFk_cul_cursos_id(long fk_cul_cursos_id) {
-        this.fk_cul_cursos_id = fk_cul_cursos_id;
+        this.fkCulPostsId = fk_cul_cursos_id;
     }
 
     public long getFk_cul_usuarios_id() {
-        return fk_cul_usuarios_id;
+        return fkCulUsuariosId;
     }
 
     public void setFk_cul_usuarios_id(long fk_cul_usuarios_id) {
-        this.fk_cul_usuarios_id = fk_cul_usuarios_id;
+        this.fkCulUsuariosId = fk_cul_usuarios_id;
     }
 
     public Date getData_criacao() {
-        return data_criacao;
+        return dataCriacao;
     }
 
     public void setData_criacao(Date data_criacao) {
-        this.data_criacao = data_criacao;
+        this.dataCriacao = data_criacao;
     }
 
     public Date getData_mudanca() {

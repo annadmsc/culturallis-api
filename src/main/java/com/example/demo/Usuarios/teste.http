@@ -1,8 +1,10 @@
-
-GET localhost:1234/api/culturallis/listarPosts
-Content-Type: application/json
-
-{
-  "urlFoto": "blablabla.com"
-}
-
+#GET localhost:1234/api/culturallis/listarCursos/ana.damasceno@gmail.com
+#GET localhost:1234/api/culturallis/cursoInfo/31
+#GET localhost:1234/api/culturallis/meusCursosAdquiridos/ana.damasceno@gmail.com
+#POST localhost:1234/api/culturallis/adquirirCurso/36/ana.damasceno@gmail.com
+#POST localhost:1234/api/culturallis/salvarPost/36/ana.damasceno@gmail.com"
+#GET localhost:1234/api/culturallis/listarPosts/ana.damasceno@gmail.com
+#POST localhost:1234/api/culturallis/salvarPost/63/ana.damasceno@gmail.com
+#GET localhost:1234/api/culturallis/salvos/ana.damasceno@gmail.com
+#POST localhost:1234/api/culturallis/curtirPost/63/ana.damasceno@gmail.com
+#GET localhost:1234/api/culturallis/listarConteudos
