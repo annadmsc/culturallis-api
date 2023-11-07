@@ -55,7 +55,10 @@ public class CursoController {
             List<Conteudos> conteudos = conteudosRepository.findAllByFkCulCursosId(cr.getPk_id());
             Optional<Categorias> categorias = categoriasRepository.findById(cr.getFkCulCategoriasId());
 
+            Optional<Usuarios> usuarios = usuariosRepository.findById(cr.getfkCulUsuariosId());
+
             if (categorias.isPresent()) {
+                Usuarios usr = usuarios.get();
                 Categorias ct = categorias.get();
                 CourseInfo courseInfo = new CourseInfo(
                         cr.getPk_id(),
@@ -63,6 +66,9 @@ public class CursoController {
                         cr.getFkCulCategoriasId(),
                         cr.getNome(),
                         ct.getNome(),
+                        cr.getUrl_midia(),
+                        usr.getUrlFoto(),
+                        usr.getNomeUsuario(),
                         cr.getDescricao(),
                         cr.getPreco(),
                         cr.getData_criacao(),
