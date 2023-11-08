@@ -25,9 +25,9 @@ public class CourseCreation {
 
     private Date data_desastivacao;
 
-    private List<Conteudos> conteudosList;
+    private List<String> conteudosList;
 
-    public CourseCreation(String nome, String fotoPost, String fk_cul_usuarios_id, String descricao, String categoria, Double preco, Date data_criaco, Date data_mudanca, Date data_desastivacao, List<Conteudos> conteudosList) {
+    public CourseCreation(String nome, String fotoPost, String fk_cul_usuarios_id, String descricao, String categoria, Double preco, Date data_criaco, Date data_mudanca, Date data_desastivacao, List<String> conteudosList) {
         this.nome = nome;
         this.fotoPost = fotoPost;
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
@@ -128,11 +128,11 @@ public class CourseCreation {
         this.data_desastivacao = data_desastivacao;
     }
 
-    public List<Conteudos> getConteudosList() {
+    public List<String> getStringList() {
         return conteudosList;
     }
 
-    public void setConteudosList(List<Conteudos> conteudosList) {
+    public void setStringList(List<String> conteudosList) {
         this.conteudosList = conteudosList;
     }
 }

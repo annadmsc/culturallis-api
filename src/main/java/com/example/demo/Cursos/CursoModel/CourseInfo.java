@@ -17,6 +17,12 @@ public class CourseInfo {
 
     private String categoria;
 
+    private String url_midia;
+
+    private String courseOwnerFoto;
+
+    private String courseOwner;
+
     private String descricao;
 
     private double preco;
@@ -31,12 +37,15 @@ public class CourseInfo {
 
     public CourseInfo(){};
 
-    public CourseInfo(Long pk_id, Long fk_cul_usuarios_id, Long fk_cul_categorias_id, String nome, String categoria, String descricao, double preco, Date data_criacao, Date data_mudanca, Date data_desativacao, List<Conteudos> modulos) {
+    public CourseInfo(Long pk_id, Long fk_cul_usuarios_id, Long fk_cul_categorias_id, String nome, String categoria, String url_midia, String courseOwnerFoto, String courseOwner, String descricao, double preco, Date data_criacao, Date data_mudanca, Date data_desativacao, List<Conteudos> modulos) {
         this.pk_id = pk_id;
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
         this.fk_cul_categorias_id = fk_cul_categorias_id;
         this.nome = nome;
         this.categoria = categoria;
+        this.url_midia = url_midia;
+        this.courseOwnerFoto = courseOwnerFoto;
+        this.courseOwner = courseOwner;
         this.descricao = descricao;
         this.preco = preco;
         this.data_criacao = data_criacao;
@@ -133,6 +142,30 @@ public class CourseInfo {
         this.modulos = modulos;
     }
 
+    public String getUrl_midia() {
+        return url_midia;
+    }
+
+    public void setUrl_midia(String url_midia) {
+        this.url_midia = url_midia;
+    }
+
+    public String getCourseOwnerFoto() {
+        return courseOwnerFoto;
+    }
+
+    public void setCourseOwnerFoto(String courseOwnerFoto) {
+        this.courseOwnerFoto = courseOwnerFoto;
+    }
+
+    public String getCourseOwner() {
+        return courseOwner;
+    }
+
+    public void setCourseOwner(String courseOwner) {
+        this.courseOwner = courseOwner;
+    }
+
     @Override
     public String toString() {
         return "CourseInfo{" +
@@ -141,6 +174,9 @@ public class CourseInfo {
                 ", fk_cul_categorias_id=" + fk_cul_categorias_id +
                 ", nome='" + nome + '\'' +
                 ", categoria='" + categoria + '\'' +
+                ", url_midia='" + url_midia + '\'' +
+                ", courseOwnerFoto='" + courseOwnerFoto + '\'' +
+                ", courseOwner='" + courseOwner + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", preco=" + preco +
                 ", data_criacao=" + data_criacao +
