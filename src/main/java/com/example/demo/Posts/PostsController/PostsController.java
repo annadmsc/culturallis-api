@@ -36,7 +36,7 @@ public class PostsController {
     }
 
     @GetMapping("/listarPosts/{email}")
-    public List<ReturnPostsHome> getContents(@PathVariable String email) {
+    public List<ReturnPostsHome> getPosts(@PathVariable String email) {
 
         List<Post> allPosts = postRepository.findAll();
         List<ReturnPostsHome> postsHome = new ArrayList<>();
@@ -170,7 +170,7 @@ public class PostsController {
     }
 
     @PutMapping("/alterarPost/{id}")
-    public ResponseEntity<String> alterarPost(@PathVariable Long id, @RequestBody Post postAtt) {
+    public ResponseEntity<String> updatePost(@PathVariable Long id, @RequestBody Post postAtt) {
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent()) {
             Post pst = post.get();

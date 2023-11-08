@@ -29,7 +29,7 @@ public class ComentarioController {
     }
 
     @PostMapping("/comentar")
-    public ResponseEntity<String> comment(@RequestBody Comentario comentario) {
+    public ResponseEntity<String> insertComment(@RequestBody Comentario comentario) {
         comentario.setData_criacao(new Date());
         try {
             comentarioRepository.save(comentario);
@@ -50,7 +50,7 @@ public class ComentarioController {
     }
 
     @PutMapping("/alterarComentario/{id}")
-    public ResponseEntity<String> alterarComentario(@PathVariable Long id, @RequestBody Comentario commentAtt) {
+    public ResponseEntity<String> updateComment(@PathVariable Long id, @RequestBody Comentario commentAtt) {
         Optional<Comentario> comment = comentarioRepository.findById(id);
         if (comment.isPresent()) {
             Comentario cmmt = comment.get();

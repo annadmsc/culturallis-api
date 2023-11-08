@@ -22,15 +22,15 @@ public class AvaliacoesCursoController {
     }
 
     @GetMapping("/listarAvaliacoes")
-    public List<AvaliacoesCurso> getContents() {
+    public List<AvaliacoesCurso> getAssessments() {
         return avaliacoesCursoRepository.findAll();
     }
 
     @PostMapping("/inserirAvaliacoes")
-    public ResponseEntity<String> insertContents(@RequestBody AvaliacoesCurso avaliacao) {
-        avaliacao.setData_criacao(new Date());
+    public ResponseEntity<String> insertAssessments(@RequestBody AvaliacoesCurso assessment) {
+        assessment.setData_criacao(new Date());
         try {
-            avaliacoesCursoRepository.save(avaliacao);
+            avaliacoesCursoRepository.save(assessment);
             return ResponseEntity.ok("Avaliação Concluida");
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -38,9 +38,9 @@ public class AvaliacoesCursoController {
     }
 
     @PostMapping("/excluirAvaliacao")
-    public ResponseEntity<String> deleteRating(@RequestParam Long id) {
-        Optional<AvaliacoesCurso> ratingToDelete = avaliacoesCursoRepository.findById(id);
-        if (ratingToDelete.isPresent()) {
+    public ResponseEntity<String> deleteAssessment(@RequestParam Long id) {
+        Optional<AvaliacoesCurso> assessToDelete = avaliacoesCursoRepository.findById(id);
+        if (assessToDelete.isPresent()) {
             avaliacoesCursoRepository.deleteById(id);
             return ResponseEntity.ok("Avaliação excluída!");
         }
@@ -48,16 +48,16 @@ public class AvaliacoesCursoController {
     }
 
     @PutMapping("/alterarAvaliacaoCurso/{id}")
-    public ResponseEntity<String> alterarAvaliacao(@PathVariable Long id, @RequestBody AvaliacoesCurso avvAtt) {
-        Optional<AvaliacoesCurso> rating = avaliacoesCursoRepository.findById(id);
-        if (rating.isPresent()) {
-            AvaliacoesCurso avaliacao = rating.get();
-            avaliacao.setFk_cul_cursos_id(avvAtt.getFk_cul_cursos_id());
-            avaliacao.setFk_cul_usuarios_id(avvAtt.getFk_cul_usuarios_id());
-            avaliacao.setData_criacao(avvAtt.getData_criacao());
-            avaliacao.setData_mudanca(new Date());
-            avaliacao.setData_desativacao(avvAtt.getData_desativacao());
-            avaliacoesCursoRepository.save(avaliacao);
+    public ResponseEntity<String> updateAssessment(@PathVariable Long id, @RequestBody AvaliacoesCurso avvAtt) {
+        Optional<AvaliacoesCurso> assess = avaliacoesCursoRepository.findById(id);
+        if (assess.isPresent()) {
+            AvaliacoesCurso assessment = assess.get();
+            assessment.setFk_cul_cursos_id(avvAtt.getFk_cul_cursos_id());
+            assessment.setFk_cul_usuarios_id(avvAtt.getFk_cul_usuarios_id());
+            assessment.setData_criacao(avvAtt.getData_criacao());
+            assessment.setData_mudanca(new Date());
+            assessment.setData_desativacao(avvAtt.getData_desativacao());
+            avaliacoesCursoRepository.save(assessment);
             return ResponseEntity.ok("Conteúdo atualizado!");
         }
         return ResponseEntity.notFound().build();
