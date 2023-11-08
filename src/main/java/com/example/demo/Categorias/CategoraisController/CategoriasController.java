@@ -22,12 +22,12 @@ public class CategoriasController {
     }
 
     @GetMapping("/listarCategorias")
-    public List<Categorias> getContents() {
+    public List<Categorias> getCategory() {
         return categoriasRepository.findAll();
     }
 
     @PostMapping("/inserirCategorias")
-    public ResponseEntity<String> insertContents(@RequestBody Categorias categorias) {
+    public ResponseEntity<String> insertCategory(@RequestBody Categorias categorias) {
         categorias.setData_criacao(new Date());
         try {
             categoriasRepository.save(categorias);
@@ -48,7 +48,7 @@ public class CategoriasController {
     }
 
     @PutMapping("/alterarCategorias/{id}")
-    public ResponseEntity<String> alterarCategoria(@PathVariable("id") Long id, @RequestBody Categorias categoriasAtt) {
+    public ResponseEntity<String> updateCategory(@PathVariable("id") Long id, @RequestBody Categorias categoriasAtt) {
         Optional<Categorias> category = categoriasRepository.findById(id);
         if (category.isPresent()) {
             Categorias cat = category.get();

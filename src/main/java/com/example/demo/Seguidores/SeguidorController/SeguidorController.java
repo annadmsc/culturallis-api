@@ -54,7 +54,7 @@ public class SeguidorController {
     }
 
     @PutMapping("/alterarSeguidor/{id}")
-    public ResponseEntity<String> alterarProduto(@PathVariable Long id, @RequestBody Seguidor seguidorAtt) {
+    public ResponseEntity<String> updateSeguidor(@PathVariable Long id, @RequestBody Seguidor seguidorAtt) {
         Optional<Seguidor> seguidor = seguidorRepository.findById(id);
         if (seguidor.isPresent()) {
             Seguidor seg = seguidor.get();

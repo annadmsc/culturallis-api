@@ -47,7 +47,7 @@ public class ConteudosController {
     }
 
     @PutMapping("/alterarConteudos/{id}")
-    public ResponseEntity<String> alterarProduto(@PathVariable Long id, @RequestBody Conteudos conteudosAtt) {
+    public ResponseEntity<String> updateContent(@PathVariable Long id, @RequestBody Conteudos conteudosAtt) {
         Optional<Conteudos> content = conteudosRepository.findById(id);
         if (content.isPresent()) {
             Conteudos cont = content.get();

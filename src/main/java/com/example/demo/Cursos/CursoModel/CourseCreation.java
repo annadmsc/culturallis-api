@@ -19,7 +19,7 @@ public class CourseCreation {
 
     private Double preco;
 
-    private Date data_criaco;
+    private Date data_criacao;
 
     private Date data_mudanca;
 
@@ -27,14 +27,15 @@ public class CourseCreation {
 
     private List<String> conteudosList;
 
-    public CourseCreation(String nome, String fotoPost, String fk_cul_usuarios_id, String descricao, String categoria, Double preco, Date data_criaco, Date data_mudanca, Date data_desastivacao, List<String> conteudosList) {
+    public CourseCreation(String nome, String fotoPost, String fk_cul_usuarios_id, String descricao, String categoria,
+            Double preco, Date data_criacao, Date data_mudanca, Date data_desastivacao, List<String> conteudosList) {
         this.nome = nome;
         this.fotoPost = fotoPost;
         this.fk_cul_usuarios_id = fk_cul_usuarios_id;
         this.descricao = descricao;
         this.categoria = categoria;
         this.preco = preco;
-        this.data_criaco = data_criaco;
+        this.data_criacao = data_criacao;
         this.data_mudanca = data_mudanca;
         this.data_desastivacao = data_desastivacao;
         this.conteudosList = conteudosList;
@@ -49,7 +50,7 @@ public class CourseCreation {
                 ", descricao='" + descricao + '\'' +
                 ", categoria='" + categoria + '\'' +
                 ", preco=" + preco +
-                ", data_criaco=" + data_criaco +
+                ", data_criaco=" + data_criacao +
                 ", data_mudanca=" + data_mudanca +
                 ", data_desastivacao=" + data_desastivacao +
                 ", conteudosList=" + conteudosList +
@@ -105,11 +106,11 @@ public class CourseCreation {
     }
 
     public Date getData_criaco() {
-        return data_criaco;
+        return data_criacao;
     }
 
     public void setData_criaco(Date data_criaco) {
-        this.data_criaco = data_criaco;
+        this.data_criacao = data_criaco;
     }
 
     public Date getData_mudanca() {

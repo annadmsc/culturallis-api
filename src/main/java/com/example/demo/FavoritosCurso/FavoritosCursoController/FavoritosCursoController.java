@@ -44,7 +44,7 @@ public class FavoritosCursoController {
     }
 
     @PostMapping("/excluirCursoFavorito")
-    public ResponseEntity<String> defavoriteCourse(@RequestParam Long id) {
+    public ResponseEntity<String> deleteFavoriteCourse(@RequestParam Long id) {
         Optional<FavoritoCurso> favToDel = favoritosCursoRepository.findById(id);
         if (favToDel.isPresent()) {
             favoritosCursoRepository.deleteById(id);
@@ -54,7 +54,7 @@ public class FavoritosCursoController {
     }
 
     @PutMapping("/alterarCursoFavorito/{id}")
-    public ResponseEntity<String> alterarCursoFavorito(@PathVariable Long id, @RequestBody FavoritoCurso favAtt) {
+    public ResponseEntity<String> updateFavoriteCourse(@PathVariable Long id, @RequestBody FavoritoCurso favAtt) {
         Optional<FavoritoCurso> fav = favoritosCursoRepository.findById(id);
         if (fav.isPresent()) {
             FavoritoCurso crsFav = fav.get();
