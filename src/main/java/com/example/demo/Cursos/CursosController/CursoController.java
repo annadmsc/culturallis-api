@@ -288,8 +288,8 @@ public class CursoController {
             Curso curso = new Curso(categoriasId, usuariosRepository.findByEmail(email).getpkId(), courseInfo.getNome(), courseInfo.getPreco(), courseInfo.getFotoPost(), courseInfo.getDescricao(), courseInfo.getData_criaco(), courseInfo.getData_mudanca(), courseInfo.getData_desastivacao());
             Long courseId = cursoRepository.save(curso).getPk_id();
 
-            for(Conteudos conteudos : courseInfo.getConteudosList()){
-                conteudosRepository.save(new Conteudos(courseId, conteudos.getNome(), conteudos.getUrl_material(), new Date(), null, null));
+            for(String conteudos : courseInfo.getStringList()){
+                conteudosRepository.save(new Conteudos(courseId, "Modulo - " + courseId  ,  conteudos.toString(), new Date(), null, null));
             }
 
             return ResponseEntity.ok("Curso Inserido");
