@@ -279,13 +279,13 @@ public class CursoController {
             return returnOwnCoursesHomes;
     }
 
-    @PostMapping("/inserirCurso")
-    public ResponseEntity<String> inserirCurso(@RequestBody CourseCreation courseInfo) {
+    @PostMapping("/inserirCurso/{email}")
+    public ResponseEntity<String> inserirCurso(@RequestBody CourseCreation courseInfo, @PathVariable String email) {
         courseInfo.setData_criaco(new Date());
         try {
             Long categoriasId =  categoriasRepository.save(new Categorias(courseInfo.getNome(), new Date(), null, null)).getPk_id();
 
-            Curso curso = new Curso(categoriasId, Long.parseLong(courseInfo.getFk_cul_usuarios_id()), courseInfo.getNome(), courseInfo.getPreco(), courseInfo.getFotoPost(), courseInfo.getDescricao(), courseInfo.getData_criaco(), courseInfo.getData_mudanca(), courseInfo.getData_desastivacao());
+            Curso curso = new Curso(categoriasId, usuariosRepository.findByEmail(email).getpkId(), courseInfo.getNome(), courseInfo.getPreco(), courseInfo.getFotoPost(), courseInfo.getDescricao(), courseInfo.getData_criaco(), courseInfo.getData_mudanca(), courseInfo.getData_desastivacao());
             Long courseId = cursoRepository.save(curso).getPk_id();
 
             for(Conteudos conteudos : courseInfo.getConteudosList()){
