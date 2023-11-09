@@ -1,0 +1,38 @@
+#
+#
+A API Culturallis é uma aplicação em Java Spring projetada para lidar com a persistência de dados para o aplicativo Culturallis, uma rede social dedicada à promoção e compartilhamento de experiências culturais.
+
+
+
+Introdução
+
+A API Culturallis atua como a infraestrutura de backend para o aplicativo Culturallis, proporcionando capacidades de armazenamento e recuperação de dados de maneira eficiente. Construída sobre o framework Spring, garante confiabilidade e escalabilidade.
+
+
+
+
+Recursos
+
+    Gerenciamento de Usuários: Manipula dados de usuário.
+    Persistência de Conteúdo: Armazena e recupera conteúdo cultural, cursos e postagens feitos pelos usuários.
+    Interações : Facilita interações com cursos e posts, como curtidas, salvamentos.
+
+
+Modo de Uso 
+
+    - Rodar o projeto no IntelliJ IDEA ou outra IDEA que use.
+    - fazer requisição atraves de arquivo http, INSOMNIA, POSTMAN etc.
+    - Possiveis rotas: 
+        - api/culturallis/meusCursosAdquiridos/{email}   :  lista cursos que o usuário dono do email ingressou GET
+        - api/culturallis/alterarUsuarios/{email} : alterar informações de perfil do usuário dono do email PATCH **requer body**
+        - api/culturallis/listarUsuarios: lista todos os usuários cadastrados  GET
+        - api/culturallis/login : realiza o login do usuário POST **requer body**
+
+
+
+Qualquer dúvida entrar em contato via email com os alunos : 
+Ana Damasceno 
+Helena Costa 
+Gabriel Fidalgo 
+Mirella Miyakawa 
+Arthur Macedo
